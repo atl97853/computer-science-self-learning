@@ -6,7 +6,7 @@
 fun same_string(s1 : string, s2 : string) =
     s1 = s2
 
-(* put your solutions for problem 1 here *)
+(* put your solutions for problem 1 here ------------------------------------------*)
 
 (* (a) Write a function all_except_option, which takes a string and a string list. Return NONE if the
 string is not in the list, else return SOME lst where lst is identical to the argument list except the string
@@ -37,18 +37,18 @@ fun get_substitutions1 (list, s) =
 (* (c) Write a function get_substitutions2, which is like get_substitutions1 except it uses a tail-recursive
 local helper function. *)
 fun get_substitutions2 (list, s) =
-    let
-        fun extract_list_val(opt) = 
-            case opt of 
-                NONE => []
-                | SOME sublist => sublist
-        fun get_sub_helper(list, s, acc) =
-            case list of 
-                [] => acc
-                | l::list' => get_sub_helper(list', acc, @ extract_list_val(all_except_option(s, 1)))
-    in
-        get_sub_helper(listm s, [])
-    end
+  let
+      fun extract_list_val(opt) =
+	case opt of
+	    NONE => []
+	  | SOME sublist => sublist
+      fun get_sub_helper(list, s, acc) =
+	case list of
+	    [] => acc
+	  | l::list'=> get_sub_helper(list', s, acc @ extract_list_val(all_except_option(s, l)))
+  in
+      get_sub_helper(list, s, [])
+  end
 
 
 
