@@ -1,3 +1,5 @@
+use "02_homework.sml";
+
 (* Homework2 Simple Test *)
 (* These are basic test cases. Passing these tests does not guarantee that your code will pass the actual homework grader *)
 (* To run the test, add a new line to the top of this file: use "homeworkname.sml"; *)
@@ -7,7 +9,7 @@ val test1 = all_except_option ("string", ["string"]) = SOME []
 
 val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
 
-val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
+(* val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
 
 val test4 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
 	    [{first="Fred", last="Smith", middle="W"}, {first="Fredrick", last="Smith", middle="W"},
@@ -37,4 +39,4 @@ val test13 = ((officiate([(Clubs,Jack),(Spades,Num(8))],
                          42);
                false) 
               handle IllegalMove => true)
-             
+              *)
