@@ -28,6 +28,6 @@ function test(x) {
 }
 
 const something = test(5)
-console.log(something) // runs the function but no the inner function because the called in not finished
+console.log(something) // runs the function but not the inner function because the call is not finished
 
 console.log(something(3)) // finishes exexution and takes arguments for the inner function
