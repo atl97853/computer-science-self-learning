@@ -1,9 +1,4 @@
-function add(x) {
-    console.log('the function was assigned')
-    return (y) => {
-        return x + y
-    }
-}
+const something = x => y => x * y
 
-const addFive = add(0)
-const addTen = add(5)
+const mul = something(5)
+console.log(mul)
