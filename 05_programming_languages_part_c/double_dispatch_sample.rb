@@ -49,7 +49,8 @@ def add_values(a, b)
 end
 
 number = MyNumber.new(123)
-string = MyString.new("abc")
+string = MyString.new("123")
 
-add_values(number, string)
-add_values(string, string)
+add_values(number, string) # bug? 
+# add_values(string, string)
+
