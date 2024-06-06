@@ -1,5 +1,8 @@
 public class HelloWorld {
     static public void main(String[] args) {
-        System.out.println("Hello World!");
+        if ('A' < 'B') {
+            System.out.println("Hi !!!");
+        }
+        
     }
 }
