@@ -87,7 +87,7 @@ Why do we need to write down our assumptions? Because programming is full of the
 
 Examples: 
 - Writing the type of a variable down, documents an assumption about it. 
-- Declaring a variable final is also a form of documentation. 
+- Declaring a variable *final* is also a form of documentation. 
 - We should document another assumptions that java doesn't check automatically, for example: that *n* must be positive (as we document in the comment above the code).
 
 #### **Hacking vs. engineering**
@@ -95,3 +95,16 @@ Hacking is often marked by unbridled optimism:
 - Bad: writing lost of code before testing any of it. 
 - Bad: keeping all the details in your head, assuming you'll remember them forever, instead of writing them down in your code. 
 - Bad: assuming that bugs will be nonexistent or else easy to find and fix.
+
+But software engineering is not hacking. Engineers are pessimists: 
+- Good: write a little bit at a time, testing as you go. (in a future class, we'll talk about test-first programming).
+- Good: document the assuptions that your code depends on. 
+- Good: defend your cade against stupidity, *especially your own, static checking helps with that.*
+
+*Assumptions that aren't self-documenting* in the code would have to be documented using comments in the code instead. 
+
+It's generally good practice to document assumptions made in your code, especially if they are not entirely clear from the code itself. This helps improve code readability, maintainability and understanding for future developers (including yourself). 
+
+Always strive for code that is self-documenting as much as possible through clear naming and structure. When assumptions are not entirely clear from the code, consider a combination of techniques like comments, descriptive naming, etc. 
+
+#### **The goal of 6.031**
