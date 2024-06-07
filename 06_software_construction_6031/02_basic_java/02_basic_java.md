@@ -69,3 +69,13 @@ public class HelloWorld {
 - When the return value is not expected, the method's return type is *void*.
 - *Otherwise, the type of value returned must be compatible at compile time with the type of value expected.*
 
+**Import Statements**
+<br>A package resource is imported using the form: 
+`import <package name>.<resource name>;`
+<br>The resource is then referenced wihout the package name as a qualifier:
+```
+import javax.swing.JButton;
+JButton b = new JButton("Reset");
+```
+<br>Alternatively, all of the package's resources can be imported using the form: 
+`import <package name>.*;`
