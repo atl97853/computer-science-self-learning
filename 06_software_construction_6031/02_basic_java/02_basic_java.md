@@ -144,7 +144,7 @@ List<String> names = new ArrayList<String>();
 
 **Interfaces**
 - It specifies the set of methods that an implementing class must include. 
-- A single class can implement several different interfaces. 
+- A single class can implement several different interfaces (sets of methods). 
 - An interface guarantees a common, abstract behavior of all implementing classes:
   - The `java.util.List` interface specifies methods for all classes of lists, including `java.util.ArrayList` and `java.util.LinkedList`.
 - An interface can extend another, more general interface:
@@ -165,3 +165,36 @@ Collections.sort(aList);
   - It's not pure duck typing because the compiler performs static checks, but it exhibits some duck-like behavior due to the flexibility within the type system. 
   - The array meets the criteria to be able to use the Collections.sort() method, and that is called apparently autoboxing. 
   - Autoboxing it's the automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes.
+
+**Summary**
+<br>Think of an interface as a contract for a service provider (class). The contract specifies the services (methods) the provider must offer, but it doesn't detail how those services will be performed. The class acts as the service provider itself, implementing the methods in the contract (interface) according to its own logic.
+
+<br>Interfaces are designed for *multiple inheritance* in Java. A class can implement methods from multiple interfaces, inheriting the functionalities defined in each. 
+<br>This promotes code reusability and allows you to combine functionalities from different interfaces into a single class. 
+  - Interfaces: Multiple inheritance from multiple interfaces.
+  - Classes: Single inheritance from one superclass, but can implement multiple interfaces
+  
+<br>An interface is like a class that has variables and methods, however, unlike a class, the methods in an interface are abstract by default.
+<br> Multiple inheritance through interface occurs in Java when a class implements multiple interfaces or when an interface extends multiple interfaces.
+<br>***Interface = set of methods.***
+<hr>
+
+**Collections**
+- **Strings, Arrays, Lists, Sets, Dictionaries or Maps, Iterators.**
+
+**Arrays**
+- An array is a sequence of elements of the same type. 
+- Each element is accessed in constant time using an index position ( *O(1)* ).
+- Unlike a list, an array's length is fixed when it is created and cannot be changed.
+  
+**Sets**
+<br>A generic set specifies the element type of the set variable and the instantiated set object, as follows:
+```
+Set<String> names = new HashSet<String>();
+SortedSet<Integer> ints = new TreeSet<Integer>();
+```
+<br>A set can also be created from a list, as folllows: 
+<br>`Set<String> names = new HashSet<String>(listOfNames);`
+
+<br>*Java collections typically include a constructor that accepts another collection as an argument and adds its elements to the newly instantiated collection.*
+
