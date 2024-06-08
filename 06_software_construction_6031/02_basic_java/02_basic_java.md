@@ -141,3 +141,27 @@ CheckingAccount account = new CheckingAccount("etc...")
 new <class name><element types>(<arguments>)
 List<String> names = new ArrayList<String>();
 ```
+
+**Interfaces**
+- It specifies the set of methods that an implementing class must include. 
+- A single class can implement several different interfaces. 
+- An interface guarantees a common, abstract behavior of all implementing classes:
+  - The `java.util.List` interface specifies methods for all classes of lists, including `java.util.ArrayList` and `java.util.LinkedList`.
+- An interface can extend another, more general interface:
+  - The *List interface* extends the *Collection interface*. 
+  - This means that all of the methods required by the *Collection interface* will also be required for all lists. 
+- Interfaces are like interstitial glue that holds program components together. 
+  
+<br>Uses of interfaces: 
+```
+List<String> aList = new ArrayList<String>();
+aList.add("Ragnar");
+Collections.sort(aList);
+```
+- *The ArrayList class implements the List interface*.
+- The method *Collections.sort()* expects a *Collection of Comparables*  as an argument. 
+- Because the *String* class implements the *Comparable interface*  and the *List interface* extends the *Collection interface*, the compiler does not complain and all goes well. 
+  - The code leveragues Java's type system and interface implementations. 
+  - It's not pure duck typing because the compiler performs static checks, but it exhibits some duck-like behavior due to the flexibility within the type system. 
+  - The array meets the criteria to be able to use the Collections.sort() method, and that is called apparently autoboxing. 
+  - Autoboxing it's the automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes.
