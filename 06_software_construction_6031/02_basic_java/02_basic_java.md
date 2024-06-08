@@ -79,3 +79,53 @@ JButton b = new JButton("Reset");
 ```
 <br>Alternatively, all of the package's resources can be imported using the form: 
 `import <package name>.*;`
+
+**Terminal Output**
+- The method *println*, when run with the class variable *System.out*, converts data to text, displays it, and moves the cursor to the next line:
+`System.out.println("Hello World!");`
+- To prevent the output of a newline, use the method *print*:
+`System.out.print("Hello World!");`
+
+**Terminal Input**
+- The *Scanner* class is used for the input of text and numeric data from the keyboard. 
+- You need to instantiate a *Scanner* and use the appropriate methods for each type of data being input. 
+- Create a Scanner object attached to the keyboard: 
+`Scanner keyboard = new Scanner(System.in);`
+  - Input a line of text as a string: 
+`String s = keyboard.nextLine("Enter your name: ");`
+  - Input an integer: 
+`int i keyboard.nextInt("Enter your age: ");`
+  - Input a double: 
+`double d = keyboard.nextDouble("Enter your wage: ");` 
+<br>*Caution: using the same scanner to input strings after numbers can result in logic error, it's best to use separate scanner objects for numbers and text.*
+
+**For Loops**
+- There are two types: 
+  - a loop  for visiting each element in an iterable object, and 
+  - a loop with the same behavior as a while loop
+  
+- Form of the first type, also called *enhanced for loop*:
+```
+for <type> <variable> : <iterable> {
+    <statement>
+}
+for (String s : aListOfStrings) {
+    System.out.println(s);
+}
+```
+- Form of the second type: 
+```
+for (<initializer>; <continuation>; <update>) {
+    <statement>
+}
+for (int i = 1; i <= 10; i++) {
+    System.out.println(i);
+}
+```
+- The loop above has the same behavior as the following while loop:
+```
+int i = 1;
+while (i <= 10) {
+    System.out.println(i);
+}
+```
