@@ -129,3 +129,15 @@ while (i <= 10) {
     System.out.println(i);
 }
 ```
+
+**Object Instantiation**
+- The form for object instantiation is like this: 
+```
+new <class name>(<arguments>)
+CheckingAccount account = new CheckingAccount("etc...")
+```
+- Generic collections requiere one or more type parameters for the element types as well: 
+```
+new <class name><element types>(<arguments>)
+List<String> names = new ArrayList<String>();
+```
