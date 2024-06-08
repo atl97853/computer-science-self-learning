@@ -1,8 +1,7 @@
 public class HelloWorld {
     static public void main(String[] args) {
-        if ('A' < 'B') {
-            System.out.println("Hi !!!");
-        }
-        
+        Scanner keyboard = new Scanner(System.in);
+        String myText = keyboard.nextLine("Enter your name: ");
+        System.out.print(myText);
     }
 }
