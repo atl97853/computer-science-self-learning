@@ -223,3 +223,20 @@ for (String key : names.keySet()) {
   System.out.println(key + "" "" + names.get(key));
 }
 ```
+
+**Iterators**
+- An iterator is an object that supports the traversal fo a collection. 
+- All collections implement the *Iterable interface*. This interface includes a single method, *iterator()*, which returns an iterator object.
+- An iterator object implements the *Iterator interface*. This interface includes the methods: *next(), hasNext(), and remove()*.
+- Like collections, iterator can be generic. Thus, the generic collection's element type must be specified when a variable of type *Iterator* is declared. 
+```
+// Create a list of strings: 
+List<String> lyst = new ArrayList<String>();
+// Open an iterator on lyst: 
+Iterator<String> i = lyst.iterator();
+// Print all the strings in lyst using the iterator: 
+While (i.hasNext()) {
+  String s = i.next();
+  System.out.println(s);
+}
+```
