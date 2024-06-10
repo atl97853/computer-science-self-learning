@@ -136,7 +136,7 @@ while (i <= 10) {
 new <class name>(<arguments>)
 CheckingAccount account = new CheckingAccount("etc...")
 ```
-- Generic collections requiere one or more type parameters for the element types as well: 
+- ***Generic collections requiere one or more type parameters for the element types as well:***
 ```
 new <class name><element types>(<arguments>)
 List<String> names = new ArrayList<String>();
@@ -181,6 +181,8 @@ Collections.sort(aList);
 
 **Collections**
 - **Strings, Arrays, Lists, Sets, Dictionaries or Maps, Iterators.**
+  - Mutable: Arrays, Lits, Sets, Maps, 
+  - Immutable: Strings, 
 
 **Arrays**
 - An array is a sequence of elements of the same type. 
@@ -198,3 +200,26 @@ SortedSet<Integer> ints = new TreeSet<Integer>();
 
 <br>*Java collections typically include a constructor that accepts another collection as an argument and adds its elements to the newly instantiated collection.*
 
+**Dictionaries or Maps**
+- A map is a mutable collection of 0 or more unique key/value pairs. 
+- A generic map constrains its keys to the same *supertype* and values to the same *supertype*.
+- The *Map* interface includes the methods common to all implementing classes. 
+  - The *SortedMap* interface extends the *Map* interface to include methods for sorted maps.
+- The implementing classes, include *HashMap* and *TreeMap*.
+  - *Treemap* can return its keys in sorted order. Thus, it also implements the SortedMap interface. 
+- A generic map specifies the key/value types of the map variable and the instantiated map object, as follows: 
+```
+Map<String, Integer> names = new HashMap<String, Integer>();
+SortedMap<Integer, Integer> ints = new TreeMap<Integer, Integer>();
+```
+```
+// Associate 10 random ages between 1 and 10 with consecutive names:
+for (int i = 1; i <= 10; i++) {
+  string name = "Name" + i;
+  names.put(name, (int)(Math.random() * 10 + 1));
+}
+// Print all keys and their values: 
+for (String key : names.keySet()) {
+  System.out.println(key + "" "" + names.get(key));
+}
+```
