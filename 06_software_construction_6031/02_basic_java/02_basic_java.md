@@ -382,3 +382,36 @@ public class Student {
 }
 ```
 
+**Method Overloading**
+<br>Two methods are overloaded if they have the same name but different signatures.
+<br>For example, a Student class might have three methods named resetGrades for resetting all the grades, and all are distinct methods:
+- First method, expects no arguments:
+```
+public void resetGrades(){
+  resetGrades(0);
+}
+```
+- Second method, expects a single integer argument
+```
+public void resetGrades(int grade){
+  for (int i = 0; i < student.NUM_GRADES; i++) {
+    this.grades[i] = grade;
+  }
+}
+```
+- Third method, expects an array of integers: 
+```
+public void resetGrades(int[] grades){
+  for (int i = 0; i < Student.NUM_GRADES; i++) {
+    this.grades[i] = grades[i];
+  }
+}
+```
+Usage: 
+```
+Student s = new Student();
+s.resetGrades(100);
+s.resetGrades();
+int[] newGrades = {85, 66, 90, 100, 73};
+s.resetGrades(newGrades);
+```
