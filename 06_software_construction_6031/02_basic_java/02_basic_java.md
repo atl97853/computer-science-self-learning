@@ -181,8 +181,8 @@ Collections.sort(aList);
 
 **Collections**
 - **Strings, Arrays, Lists, Sets, Dictionaries or Maps, Iterators.**
-  - Mutable: Arrays, Lits, Sets, Maps, 
-  - Immutable: Strings, 
+  - Mutable: Arrays, Lits, Sets, Maps
+  - Immutable: Strings
 
 **Arrays**
 - An array is a sequence of elements of the same type. 
@@ -240,3 +240,107 @@ While (i.hasNext()) {
   System.out.println(s);
 }
 ```
+<hr>
+
+**Defining Classes**
+- Class Structure
+- Visibility Modifiers
+- Instance Variables and Constructors
+- Defining Other Constructors
+- Instance Methods
+- Method Overloading
+- Class (static) Variables and Methods
+- Symbolic Constants (Final Variables)
+- Defining a String Representation
+- Defining Equality
+- Defining Comparisons
+- Defining Interfaces
+- Inner Classes
+- Defining an Iterator
+
+**Class Structure**
+<br>Class definitions have the general form: 
+```
+<visibility modifier> class <name> extends <superclass name> 
+  implements <list of names>
+<class variables>
+<class methods>
+<instance variables>
+<instance methods>
+<inner classes>
+```
+- *Classes that do not explicitly extend another class, extend the Object class by default*.
+- A class may implement zero or more interfaces.
+<br>Example: 
+```
+public class Student {
+  
+  public static final int NUM_GRADES = 5
+
+  private String name;
+  private int[] grades;
+
+  public Student(String name) {
+    this.name = name;
+    this.grades = new int[NUM_GRADES];
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public int getGrade(int i) {
+    return this.grades[i - 1];
+  }
+
+  public void setGrade(int i, int newGrade) {
+    this.grades[i - 1] = newGrade;
+  }
+
+  public String toString() {
+    /*
+        Format: Name on the first line
+        and all grades on the second line,
+        separated by spaces.
+        */
+        String result = this.name + '\n';
+        for (String grade : this.grades)
+            result += grade + ' ';
+        return result;
+  }
+}
+```
+Usage:
+```
+Student s = new Student("Mary);
+for (int i = 1; i <= Student.NUM_GRADES; i++) {
+  s.setGrades(i, 100);
+}
+System.out.println(s);
+```
+
+**Instance Variables and Constructors**
+<br>Instance variables: 
+- Instance variables are declared at the same level as methods within a class definition. 
+- They are usually given private access to restrict visibility. 
+- They can receive initial values either when they are declared or in a constructor. 
+- Instances variable references may or may not be prefixed with the reserved word *this*.
+
+<br>In the following example, the variables *this.name* and *this.grades* are instance variables, whereas the variables *NUM_GRADES* is a class variable:
+```
+public class Student {
+  public static final int NUM_GRADES = 5;
+  private String name;
+  private int[] grades;
+
+  public Student(String name) {
+    this.name = name;
+    this.grades = new int[NUM_GRADES];
+  }
+}
+```
+- *the static keyword means: since it's static, NUM_GRADES is stored in the class's memory area, not within individual object instances, this memory area is shared by all objects of the class.*
+- *the constructor method is named Student, in java a constructor's name always matches the class name*.
+<br>The JVM automatically calls the constructor when the programmer requests a new instance of the class. 
+<br>`Student s = new Student("Atl");`
+<br>The constructor may receive one or more arguments to supply initial values for the object's data.
