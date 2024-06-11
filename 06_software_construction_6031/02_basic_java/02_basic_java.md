@@ -344,3 +344,41 @@ public class Student {
 <br>The JVM automatically calls the constructor when the programmer requests a new instance of the class. 
 <br>`Student s = new Student("Atl");`
 <br>The constructor may receive one or more arguments to supply initial values for the object's data.
+
+**Defining other Constructors**
+<br>Method *overloading* allows more than one constructor to be defined, as long as they have different numbers and/or types of arguments. 
+```
+public class Student {
+  public static final int NUM_GRADES = 5;
+  private String name;
+  private int[] grades;
+  
+  public Student (String name) { // first constructor
+    this.name = name;
+    etc ... 
+  }
+  public Student() { // this is the other constructor
+    this("");
+  }
+}
+```
+<br>The Student class is given a default constructor that expects no arguments.
+<br>The new constructor calls other constructor by using the keyword *this* and the appropriate argument.
+
+**Defining Instance Methods**
+<br>The form of an instance method definition is: 
+<br>`<visibility modifier> <return type> <name> <args>{<statements>}`
+<br>All methods must specify a return type.
+<br>All type checking is done at compile time. 
+```
+public class Student {
+  // instance methods 
+  public String getName() {
+    return this.name;
+  }
+  public int getGrade(int i) {
+    return this.grades[i - 1];
+  }
+}
+```
+
