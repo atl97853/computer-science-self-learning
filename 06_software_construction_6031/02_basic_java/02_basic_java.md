@@ -413,5 +413,72 @@ Student s = new Student();
 s.resetGrades(100);
 s.resetGrades();
 int[] newGrades = {85, 66, 90, 100, 73};
-s.resetGrades(newGrades);
+s.resetGrades(newGrades);****
+```
+
+**Class (static) Variables and Methods**
+- Class variables name data that are shared by all instances of a class. 
+- A class variable declaration is qualified by the reserved word *static*. 
+  - the static keyword means: since it's static, NUM_GRADES is stored in the class's memory area, not within individual object instances, this memory area is shared by all objects of the class.
+- Outside of the class definition, class variable references are prefixed with the name of the class. 
+- Class variables are spelled in uppercase by convention.
+<br>Example: 
+```
+public class Student {
+  public static final int NUM_GRADES = 5;
+}
+System.out.println(Student.NUM_GRADES);
+```
+
+- Class methods are methods that know nothing about instances of a class 
+- but can access class variables an call other class methods for various purposes. 
+- A class method header is qualified by the reserved word *static*. 
+- Class method calls are prefixed with the name of the class. 
+<br>Example: 
+```
+public class Student {
+  // instance method definitions and variable declarations. 
+  public static char getLetterGrade(int grade) {
+    etc
+  }
+}
+s = new Student();
+System.out.println(Student.getLetterGrade(s.grade)) 
+```
+
+**Defining Interfaces**
+<br>The form of an interface is:
+```
+public interface <name> extends <name> {
+  <final variables>
+  <method headers>
+}
+```
+- The extension of another interface is optional.
+<br>Example: *the code for this interface would be placed in its own source file, this file can be compiled before any implementing classes are defined.*
+```
+public interface TrueStack<E> extends Iterable<E>{
+  public boolean isEmpty();
+  public E peek();
+  public E pop();
+}
+```
+<br>Each implementing class would in turn be placed in its own file, an interface must be succesfully compiled before any of its implementing classes. 
+```
+import java.util.*;
+public class ArrayStack<E> *implements* TrueStack<E>{
+  private List<E> list;
+  public ArrayStack(){
+    list = new ArrayList<E>();
+  }
+  public boolean empty(){
+    return list.isEmpty();
+  }
+  public E peek(){
+    return list.get(list.size() - 1);
+  }
+  public E pop(){
+    return list.remove(list.size() - 1);
+  }
+}
 ```
