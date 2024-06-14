@@ -8,6 +8,7 @@ Review:
 <br>**Easy to understand:** *communicating clearly with future programmers including future you.*
 <br>**Ready for change:** *designed to accommodate change without rewriting.*
 <hr>
+
 #### **From Python to Java**
 https://kennethalambert.com/pythontojava/
 
@@ -50,6 +51,7 @@ public class HelloWorld {
 
 **Categories of Data Types**
 - Primitive types, numeric types and boolean, the values of primitive types are immutable and are not instances of classes. 
+  - Java doesn’t allow calling any method on a primitive type.
 - Reference types are classes, thus, any object or instance of a class is of a reference type.
 
 **Type Conversion**
