@@ -153,7 +153,8 @@ List<String> names = new ArrayList<String>();
 - An interface can extend another, more general interface:
   - The *List interface* extends the *Collection interface*. 
   - This means that all of the methods required by the *Collection interface* will also be required for all lists. 
-- Interfaces are like interstitial glue that holds program components together. 
+- Interfaces are like interstitial glue that holds program components together.
+- List, Set, and Map are all interfaces: they define how these respective types work, but they don’t provide implementation code. There are several advantages, but one potential advantage is that we, the users of these types, get to choose different implementations in different situations. *(go to 02_basic_java_02 - ArrayLists and LinkedLists)*
   
 <br>Uses of interfaces: 
 ```
