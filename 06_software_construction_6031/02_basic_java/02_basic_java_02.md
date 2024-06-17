@@ -96,9 +96,10 @@ int second = sequence.get(1);
 <br>Here's how to create some actual Lists: 
 <br>`List<String> firstNames = new ArrayList<String>();`
 <br>`List<String> lastNames = new LinkedList<String>();`
-<br>If the *generic type parameters* are the same on the left and right, Java can infer what's going on and save us some typing:
+<br>If the *generic type parameters* are the same on the left and right, Java can infer what's going on and save us some typing: (just a reminder, Generics means parameterized types)
 <br>`List<String> firstNames = new ArrayList<>();`
 <br>`List<String> lastNames = new LinkedList<String>();`
+- We can create an array of primitive types, but not a List, we need to use the *Integer* wrapper. 
 - ArrayList and LinkedList are two *implementations* of List.
 - Both provide all the operations of *List*.
 - Both will behave the same way. 
@@ -126,3 +127,23 @@ List<String> lastNames = new ArrayList<>(Set.of("Duck));
 - `List.of()` produces an immutable list, `new ArrayList<>(List.of())` produces a mutable list, if you need a mutable list, this is simpler than making mutiple calls to `add()`.
 
 **HashSets and HashMaps: creating Set and Maps**
+- HashSet default choice for Set: `Set<Integer> numbers = new Hashset<>();`
+- HashMap default choice for Map: `Map<String, Turtle> turtles = new HashMap<>();`
+
+**Iteration:**
+<br>list / hashset iteration: 
+```
+for (datatype variable: list/set) {
+  content 
+}
+```
+*java automatically converts between int and Integer, using the simpler primitive int type is preferable to the Integer object wrapper wherever possible, it's less error-pone, as discussed in *== vs. equals*.*
+
+Map iteration: (iterate over the keys) 
+```
+for (String key : turtles.keySet()) {
+  System.out.println(key + ": " + turtles.get(key));
+}
+```
+*under the hood this kind of for loop uses an *Iterator*, a design pattern we'll see later in the class, also be careful trying to mutate a collection while your're interating over it, next lectures...*
+
