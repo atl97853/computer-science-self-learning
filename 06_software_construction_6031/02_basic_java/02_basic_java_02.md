@@ -179,3 +179,26 @@ public class Main {
 }
 ``` 
 *enumeration is more typesafe, because it can catch mistakes like type mismatches or misspellings*
+
+**Java API documentation**
+<br>The java API is a large set of generally useful tools for programming pretty much anything. 
+<br>Some examples: 
+- java.lang.String is the full name for String. We can create objects of type String just by using "double quotes".
+- java.lang.Integer and the other primitive wrapper classes. Java automagically converts between primitive and wrapped (or “boxed”) types in most situations.
+- java.util.List is like a Python list, but in Python, lists are part of the language. In Java, Lists are implemented in… Java!
+- java.util.Map is like a Python dictionary.
+- java.io.File represents a file on disk. Take a look at the methods provided by File: we can test whether the file is readable, delete the file, see when it was last modified…
+- java.io.FileReader lets us read text files.
+- java.io.BufferedReader lets us read in text efficiently, and it also provides a very useful feature: reading an entire line at a time.
+
+<br>https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/BufferedReader.html
+<br>*This is the first place you should go to understand a class or what a method does.*
+- **At the top right corner is the search box. You can use it to jump to a class or interface, or straight to a particular method.**
+
+**Specifications**
+<br>These detailed descriptions are specifications
+<br>They allow us to use tools like *String*, *Map*, or *BufferedReader*
+<br>without having to read or understand the code that implements them 
+  - ***reading, writing, understanding, and analyzing specifications will be one of our first major undertakings in 6.031***
+  
+<br>https://docs.oracle.com/en/java/javase/15/docs/api/
