@@ -147,3 +147,35 @@ for (String key : turtles.keySet()) {
 ```
 *under the hood this kind of for loop uses an *Iterator*, a design pattern we'll see later in the class, also be careful trying to mutate a collection while your're interating over it, next lectures...*
 
+**Enumerations**
+<br>When the set of values is small and finite, it makes sense to define all the values as named constants, which java calls an *enumaration* and expresses with the *enum* construct.
+```
+public enum Month { 
+    JANUARY, FEBRUARY, MARCH, APRIL, 
+    MAY, JUNE, JULY, AUGUST, 
+    SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER;
+}
+
+public enum PenColor { 
+    BLACK, GRAY, RED, PINK, ORANGE, 
+    YELLOW, GREEN, CYAN, BLUE, MAGENTA;
+}
+```
+*enums are like special classes that define a set of named constants, they shouldn't be placed within methods, they need to be declared outside of  the method main*
+
+```
+public class Main {
+    public enum Month { 
+        JANUARY, FEBRUARY, MARCH, APRIL, 
+        MAY, JUNE, JULY, AUGUST, 
+        SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER;
+    }
+    static public void main(String[] args) {
+        Month month; // initialize variable
+        month = Month.MARCH; // declare 
+        Month nov = Month.NOVEMBER; // initialize and declare 
+        System.out.println(nov);
+    }
+}
+``` 
+*enumeration is more typesafe, because it can catch mistakes like type mismatches or misspellings*
