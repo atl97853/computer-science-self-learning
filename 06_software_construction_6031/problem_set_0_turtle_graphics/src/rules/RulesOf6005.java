@@ -37,8 +37,21 @@ public class RulesOf6005 {
             boolean citingYourSource, boolean implementationRequired) {
         
         // TODO: Fill in this method, then remove the exception
+        if (writtenByYourself == true) {
+            return true;
+        } else if (availableToOthers == true) {
+            return true;
+        } else if (writtenAsCourseWork == true) {
+            return true; 
+        } else if (citingYourSource == true) {
+            return true;
+        } else if (implementationRequired == true) {
+            return true;
+        } else {
+            return false;
+        }
         
-        throw new RuntimeException("implement me!");
+        // throw new RuntimeException("implement me!");
     }
     
     /**
