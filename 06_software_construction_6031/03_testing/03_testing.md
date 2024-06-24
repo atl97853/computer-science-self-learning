@@ -13,9 +13,9 @@
 <br>The *purpose* of validation is to uncover problems in a program and thereby increase your confidence in the program's correctness. (Correctness: *one that does exactly what its designers and users intend it to do – no more and no less.* )
 
 <br>Validation includes: 
-- Formal reasoning about a program: usually called verfication, it constructs a formal proof that a program is correct. 
-- Code review, it will be discussed in the next reading class. 
-- Testing: running the program on carefully selected inputs and checking the results. 
+- **Formal reasoning** about a program: usually called verfication, it constructs a formal proof that a program is correct. 
+- **Code review**, it will be discussed in the next reading class. 
+- **Testing**: running the program on carefully selected inputs and checking the results. 
 
 <br>Even with the best validation, it's very hard to achieve perfect quality in software. 
 <br>Here are some typical residual defect rates (bugs left over after the software has shipped) per kloc (one thousand lines of source code): 
@@ -28,3 +28,11 @@
 <br>If you have shipped a million lines of typical industry source code (1 defect/kloc), it means you missed 1000 bugs! 
 
 **Why software testing is hard**
+
+*Here are some approaches that unfortunately don't work well in the world of software:*
+
+- **Exhaustive testing** is infeasible, the space of possible test cases is generally too big to cover exhaustively. 
+- **Haphazard testing** is *less likely to find bugs*, unless the program is so buggy that an arbitrarily-chosen input is more likely to fail than to succeed. It also doesn't increase our confidence in program correctness. 
+- **Random or statistical testing** doesn't work well for software, as in physical systems. Software behavior varies discontinuously and discretely across the space of possible inputs, the system may seem to work fine across a broad range of inputs, and then abruptly fail at a single boundary point. 
+
+*Instead, test cases must be chosen carefully and systematically.*
