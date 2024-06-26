@@ -58,3 +58,24 @@
 <br>*The biggest benefit of test-first programming is safety from bugs*. 
 <br>Don't leave testing until the end of development, when you have a big pile of unvalidated code. *Leaving testing until the end only makes debugging longer and more painful, because bugs may be anywhere in your code.*
 <br>It's far more pleasant to test your code as you develop it. 
+
+*some notes*: 
+- *method signature consists of the method's name, parameter types, and return type, which are all part of the specification.*
+- *every test case is a ***client*** of the module.*
+
+**Systematic testing**
+<br>Rather than exhaustive, haphazard, or randomized testing, we want to test *systematically*.
+<br>Systematic testing means that we are choosing test cases in a principled way, with the goal of designing a test suite with three desirable properties: 
+- **Correct**, *a correct test suit is a legal client of the specification*, and it accepts all legal implementations of the spec without any complaint.
+  - *This give us the freedom to change how the module is implemented internally without necessarily having to change the test suite.* 
+- **Thorough**, a thorough test suite *finds actual bugs* in the implementation, caused by mistakes that programmers are likely to make. 
+- **Small**, *a small test suite, with few test cases*, is faster to write in the first place, *and easier to update if the specification evolves*.
+  - Small test suites are alse faster to run, you will be able to run your tests more frequently if your test suites are small and fast. 
+
+<br>By these criteria, exhaustive testing is thorough but infeasibly large, haphazard testing tends to be small but not thorough, randomized testing can achieve thoroughness only at the cost of large size. 
+<br>You have to make the test suite design wanting to make your code fail, *test-first programming* allows you to put on your testing hat, and adopt that brutal perspective, before you've even written any code. 
+
+**examples**:
+- A test suite is *correct* if: all its test cases pass when run on a legal implementation (failing on buggy implementations is also desirable, of course, but that is thoroughness, not correctness).
+- A test suite T1 is more thorough than a test suite T2 if: the buggy implementations that fail at least one test in T1 is a strict superset of those that fail at least one test in T2 (if T1 rejects a superset of buggy implementations compared to T2, the T1 is more thorugh than T2), (redundant test cases might be larger, but they find the same bugs, accept more legal implementations means to be correct not thorough).
+- An empty test suite contains no test cases. Assuming a nontrivial specification, an empty test suite is: correct and small, but not thorough, it might passes all legal implementations and be as small as possible, but it alse passes buggy implementations, so it is not thorough. 
