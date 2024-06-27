@@ -66,7 +66,7 @@
 **Systematic testing**
 <br>Rather than exhaustive, haphazard, or randomized testing, we want to test *systematically*.
 <br>Systematic testing means that we are choosing test cases in a principled way, with the goal of designing a test suite with three desirable properties: 
-- **Correct**, *a correct test suit is a legal client of the specification*, and it accepts all legal implementations of the spec without any complaint.
+- **Correct**, *a correct test suit is a legal client of the specification*, and *it accepts all legal implementations of the spec without any complaint.*
   - *This give us the freedom to change how the module is implemented internally without necessarily having to change the test suite.* 
 - **Thorough**, a thorough test suite *finds actual bugs* in the implementation, caused by mistakes that programmers are likely to make. 
 - **Small**, *a small test suite, with few test cases*, is faster to write in the first place, *and easier to update if the specification evolves*.
@@ -79,3 +79,91 @@
 - A test suite is *correct* if: all its test cases pass when run on a legal implementation (failing on buggy implementations is also desirable, of course, but that is thoroughness, not correctness).
 - A test suite T1 is more thorough than a test suite T2 if: the buggy implementations that fail at least one test in T1 is a strict superset of those that fail at least one test in T2 (if T1 rejects a superset of buggy implementations compared to T2, the T1 is more thorugh than T2), (redundant test cases might be larger, but they find the same bugs, accept more legal implementations means to be correct not thorough).
 - An empty test suite contains no test cases. Assuming a nontrivial specification, an empty test suite is: correct and small, but not thorough, it might passes all legal implementations and be as small as possible, but it alse passes buggy implementations, so it is not thorough. 
+
+**Choosing test cases by partitioning**
+<br>We want to pick a set of test cases that is small enough to be easy to write and maintain and quick to run, yet thorough enough to find bugs in the program. 
+<br>**Todo this**: 
+
+- <ins>we divide the input space into subdomains, each consisting of a set of inputs</ins>
+- <ins>taken together, the subdomains form a partition:</ins> 
+- <ins>a collection of disjoint sets that completely covers the input space</ins> 
+- <ins>so that every input lies in exactly one subdomain</ins> 
+- <ins>then we choose one test case from each subdomain, and that's our test suite</ins> 
+
+<br>*test case = particular choice of inputs* * / subdomains are not the same as test cases. 
+<br>*subdomains* = are set inputs from which test cases are chosen.
+<br>*test suit = set of test cases* * 
+- The idea behind subdomains is to dived the input space into sets of similar inputs on which the program has similar behavior.
+- Then we use one representative of each set.
+- *a partition* must completely cover the set of possible inputs.
+  
+*This approach makes the best use of limited testing resources by choosing dissimilar test cases, and forcing the testing to explore areas of the input space that random testing might not reach.*
+
+<br>**example 1**:
+
+```
+/**
+ * ...
+ * @param a  an argument
+ * @param b  another argument
+ * @return the larger of a and b.
+ */
+public static int max(int a, int b)
+```
+<br>`max int x int -> int`
+- We have a two-dimensional *input space*, consisting of all the pairs of integers (a,b), now let's partition it: 
+- from the specification, it makes sense to choose the subdomains: `{(a,b)|a < b} and {(a,b)|a > b}`
+- but we can't stop there, because these subdomains are not yet a partition of the input space 
+- ***a partition must completely cover the set of possible inputs***, so we need to add `{(a,b)|a = b}`
+<br>Expressed compactly, the partition looks like this: `// partition: a < b; a > b; a = b`
+<br>Out test suite might the be: 
+- `(a,b) = (1,2) to cover a < b`
+- `(a,b) = (10,-8) to cover a > b`
+- `(a,b) = (9,9) to cover a = b`
+
+**example 2**:
+<br>*suppose you want to partition the input space of this integer square root function*
+```
+/**
+ * @param x   must be nonnegative
+ * @returns nearest int to the square root of x
+ */
+public static int sqrt(int x)
+```
+Evaluate the quality of each of the following candidate partitions 
+- Are the proposed subdomains disjoint and complete, thus forming a partition? 
+- Are they correct, in the sense that each subdomain can be covered by a legal test case? 
+<br>*A good partition should check all three boxes*
+<br>`// partition: x < 0; x >= 0` *(subdomains are: disjoint and complete, not correct)*.
+- The proposed subdomains are disjoint, and their union covers the input space of the function, so they form a partition.
+- But x < 0 is not a correct subdomain because it consists entirely of ilegal inputs, so it would not be possible ot choose a correct test case to cover this subdomain.
+<br>`// partition: x is a pefect square; x is an integer > 0 but not a perfect square` *(subdomains are: disjoint, complete, correct).*
+- The two proposed subdomains are disjoint. 
+- Their union covers the input space of the function (including 0, which is a perfect square).
+- They include no ilegal inputs, so they form a correct partition.
+- This is likely to be useful partition, in the sense of separating inputs with different behavior, because the function returns an exact answer on the first subdomain but a rounded answer on the second.
+<br>`// partition: x = 0, x = 1, x = 7, x = 16` *(subdomains are: disjoint, correct, not complete).*
+- These four proposed subdomains are singleton sets, which are disjoint but do not completely cover the input space. 
+- All of them are correct inputs.
+- This example looks like a set of candidate test cases that have been proposed as a partition, which is a common confusion. 
+- ***Subdomains are not the same as test cases.***
+- ***Subdomains are sets of inputs from which test cases are chosen.***
+- Some subdomains may be singletons (like boundary values), but most are not.
+
+<br>**example 3:**
+```
+/**
+ * @param x an integer
+ * @param y an integer, where x and y are not both 0
+ * @return the greatest common divisor of x and y
+ */
+public static int gcd(int x, int y);
+```
+`// partition: x and y are not both 0` *(subdomains are: disjoint, complete, correct).*
+- This is a single subdomain, `{(x,y)| x and y are not both 0}`
+- This is indeed a partition, because it covers the entire domain, but it's unlikely to be useful for producing a thotough test suite, however.
+<br>`// partition: x is divisible by y; y is divisible by x; x and y are relatively prime` *(subdomains are: correct, but not disjoint, complete).*
+- The three subdomains are not disjoint, for example, any point such that x = y belongs to both of the first two, and x = y = 1 belongs to all three. 
+- The subdomains are not complete because they don't cover a point like x = 6, y = 8, where x and y are not relatively prime but also neither is a factor of the other.
+- The subdomains are, however, correct, because each one contains at least one legal test case. 
+- This partition could be imporved into a complete disjoint, and useful partition for gcd
