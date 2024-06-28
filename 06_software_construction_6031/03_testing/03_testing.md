@@ -53,7 +53,7 @@
 - **Spec**: write a specification for the function. 
 - **Test**: write tests that exercise the specification. 
 - **Implement**: write the implementation. 
-<br>Once your implementation passes the tests you wrote, you're done. 
+<br>***Once your implementation passes the tests you wrote, you're done.***
 
 <br>*The biggest benefit of test-first programming is safety from bugs*. 
 <br>Don't leave testing until the end of development, when you have a big pile of unvalidated code. *Leaving testing until the end only makes debugging longer and more painful, because bugs may be anywhere in your code.*
@@ -167,3 +167,75 @@ public static int gcd(int x, int y);
 - The subdomains are not complete because they don't cover a point like x = 6, y = 8, where x and y are not relatively prime but also neither is a factor of the other.
 - The subdomains are, however, correct, because each one contains at least one legal test case. 
 - This partition could be imporved into a complete disjoint, and useful partition for gcd
+
+**Include boundaries in the partition**
+- *A **boundary** value is a data value that corresponds to a minimum or maximum input, internal, or output value specified for a system or component.*
+- *Bugs often occur at boundaries between subdomains.*
+  - 0 is a boundary between positive numbers and negative numbers. 
+  - the maximum and minimum values of numeric types, like int or double.
+  - emptiness for collection types, like the empty string, empty list, or empty set, (for example empty string) 
+  - the first and last element of a sequence, like a string or list. 
+  
+<br>**Example 1:**
+```
+/**
+ * @param winsAndLosses  a string of length at most 5 consisting of 'W' or 'L' characters
+ * @return the fraction of characters in winsAndLosses that are 'W'
+ */
+double winLossRatio(String winsAndLosses);
+```
+Boundaries: 
+- `""`, the empty string is always a good boundary value, as are other minimums like 0 or the empty list
+- `"LLLLL"` and `WWWWW`, maximums also produce good boundary values, in this case, maximizing the number of W characters, and also maximizing the number of L characters
+
+**Example 2, BigInteger.multiply**
+```
+// specification: 
+/**
+ * @param val another BigInteger
+ * @return a BigInteger whose value is (this * val).
+ */
+public BigInteger multiply(BigInteger val)
+```
+For example, here's how it might be used: 
+```
+BigInteger a = new BigInteger("9500000000"); // 9.5 billion
+BigInteger b = new BigInteger("2");
+BigInteger ab = a.multiply(b); // should be 19 billion
+```
+This method is using the self-object as a second parameter, although there is only one parameter explicitly shown in the method's declaration, *multiply is actually a function of two arguments:* the object you're calling the method on `a`, and the parameter that you're passing in the parenthesses `b`.
+<br>`multiply: BigInteger x BigInteger -> BigInteger`
+- We have a two-dimensional input space, consisting of all the pairs of integers (a,b)
+- Thinking about how *sign rules* work with multiplication, *we might start with these subdomains*:
+  - a and b are both positive 
+  - a and b are both negative 
+  - a is positive, b is negative 
+  - a is negative, b is positive
+  
+- There are also some boundary values for multiplication that we should check: 
+  - a or b is 0, because the result is always 0
+  - a or b is 1, the identity value for multiplication 
+
+- Finally, because the purpose of BigInteger is to represent arbitrarily-large integers, we should make sure to try integers that are very big, at least bigger than the biggest *long*, which is roughly 2<sup>63</sup>, a 19-digit decimal integer
+  - a or b is small or large in magnitude, (small enough to represent in a *long* value, or too large for a long)
+
+<br>Let's bring all these observations together into a single partition of the whole (a,b) space, we'll choose a and b independently from: 
+- 0
+- 1
+- small positive integer (≤ Long.MAX_VALUE and > 1)
+- small negative integer (≥ Long.MIN_VALUE and < 0)
+- large positive integer (> Long.MAX_VALUE)
+- large negative integer (< Long.MIN_VALUE)
+
+<br>***so this would produce 6 x 6 = 36 subdomains that pastition the space of pairs of integers***
+<br>***to produce the test suite from this partition, we would pick an arbitrary pair (a,b) from each square of the grid:***
+
+- (a,b) = (0, 0) to cover (0, 0)
+- (a,b) = (0, 1) to cover (0, 1)
+- (a,b) = (0, 8392) to cover (0, small positive integer)
+- (a,b) = (0, -7) to cover (0, small negative integer)
+- …
+- (a,b) = (-1060, -10810) to cover (large negative, large negative)
+
+**Using multiple partitions**
+<br>For functions with multiple parameters, this can become costly.
