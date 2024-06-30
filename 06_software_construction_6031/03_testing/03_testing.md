@@ -1,4 +1,4 @@
-## Reading 3: Testing
+# Reading 3: Testing
 
 <br>***Objective***
 <br>After today's class, you should:
@@ -8,7 +8,7 @@
 - be able to judge a test suite by measuring its code coverage;
 - understand and know when to use black box vs. glass box testing, unit tests vs. integration tests, and automated regression testing. 
   
-**Validation**
+## Validation
 <br>*Testing is an example of a more general process called **validation***. 
 <br>The *purpose* of validation is to uncover problems in a program and thereby increase your confidence in the program's correctness. (Correctness: *one that does exactly what its designers and users intend it to do – no more and no less.* )
 
@@ -27,7 +27,7 @@
 <br>*Example*: 
 <br>If you have shipped a million lines of typical industry source code (1 defect/kloc), it means you missed 1000 bugs! 
 
-**Why software testing is hard**
+## Why software testing is hard
 
 *Here are some approaches that unfortunately don't work well in the world of software:*
 
@@ -39,7 +39,7 @@
 
 *Testing all inputs is not feasible, beacuse even one 64-bit floating point number has 2^64 possible values, which is more than age of the universe in microseconds*
 
-**Test-first programming**
+## Test-first programming
 - **Module**, it's a part of a software system that can be designed, implemented, tested, and reasoned about separately from the rest of the system. 
   - *in this reading, we'll focus on modules that are functions, represented by java methods, in future readings, we'll broaden our view to think about larger modules, like a class with multiple interacting mehods.*
 - **Specification/spec**, it describes the behavior of a module. 
@@ -63,8 +63,8 @@
 - *method signature consists of the method's name, parameter types, and return type, which are all part of the specification.*
 - *every test case is a ***client*** of the module.*
 
-**Systematic testing**
-<br>Rather than exhaustive, haphazard, or randomized testing, we want to test *systematically*.
+## Systematic testing
+Rather than exhaustive, haphazard, or randomized testing, we want to test *systematically*.
 <br>Systematic testing means that we are choosing test cases in a principled way, with the goal of designing a test suite with three desirable properties: 
 - **Correct**, *a correct test suit is a legal client of the specification*, and *it accepts all legal implementations of the spec without any complaint.*
   - *This give us the freedom to change how the module is implemented internally without necessarily having to change the test suite.* 
@@ -80,8 +80,8 @@
 - A test suite T1 is more thorough than a test suite T2 if: the buggy implementations that fail at least one test in T1 is a strict superset of those that fail at least one test in T2 (if T1 rejects a superset of buggy implementations compared to T2, the T1 is more thorugh than T2), (redundant test cases might be larger, but they find the same bugs, accept more legal implementations means to be correct not thorough).
 - An empty test suite contains no test cases. Assuming a nontrivial specification, an empty test suite is: correct and small, but not thorough, it might passes all legal implementations and be as small as possible, but it alse passes buggy implementations, so it is not thorough. 
 
-**Choosing test cases by partitioning**
-<br>We want to pick a set of test cases that is small enough to be easy to write and maintain and quick to run, yet thorough enough to find bugs in the program. 
+## Choosing test cases by partitioning
+We want to pick a set of test cases that is small enough to be easy to write and maintain and quick to run, yet thorough enough to find bugs in the program. 
 <br>**Todo this**: 
 
 - <ins>we divide the input space into subdomains, each consisting of a set of inputs</ins>
@@ -330,6 +330,20 @@ Partitions for the start parameter:
 - Legth is a useful partition, however, since it can interact with the start parameter.
 - Partitioning on even and odd length is also reasonable, because reversing an odd-length substring has different behavior (since it leaves the middle element in place).
 
+**Extra: Clarification on how the concepts relate to each other:**
+- Test Suites are not directly made from partitions or subdomains:
+  - Test suites are collections of test cases, not partitions or subdomains themselves.
+  - However, test cases are often designed based on partitions and subdomains to ensure comprehensive coverage.
+- Partitions are not necessarily made from subdomains:
+  - Partitions are the broader categories for grouping inputs.
+  - Subdomains are further refinements within a partition to represent specific variations.
+  - A partition might not require subdomains if the category itself is clear-cut (e.g., valid login credentials).
+- Test Cases are not the same as subdomains:
+  - Subdomains define specific variations within a partition.
+  - Test cases use a specific scenario within a subdomain to define the actual inputs, outputs, and steps for testing.
+  - Multiple test cases can be created from a single subdomain to explore different scenarios within that variation.
+
+## Automated unit testing with JUnit
 
 
 
