@@ -237,5 +237,96 @@ This method is using the self-object as a second parameter, although there is on
 - …
 - (a,b) = (-1060, -10810) to cover (large negative, large negative)
 
+
 **Using multiple partitions**
-<br>For functions with multiple parameters, this can become costly.
+- For functions with multiple parameters, this can become costly.
+- Each parameter may have interesting behavior variation and several boundary values, so forming a single partition of the input space from the *Cartesian product* of the behavior on each parameter, leads to a combinatorial explosion in the size of the resulting test suite 
+- in the `.multiply()` example, the *Cartesian product partition* had 6 x 6 = 36 subdomains, requiring 36 test cases to cover
+- for a function with *n* parameters, the *Cartesian product* approach produces a test suite of size exponential in *n*, which quickly becomes infeasible for manual test authoring 
+
+<br>***An alternative approach is to treat the features of each input a and b as two separate partitions of the input space.***
+- One partition only considers the values of a: 
+  - (a,b) such that a = 0, 1, small positive, small negative, large positive, large negative 
+- And the other partition only considers the value of b:
+  - (a,b) such that b = 0, 1, small positive, small negative, large positive, large negative 
+
+<br>*every input pair (a,b) belongs to exactly one subdomain from each partition*
+<br>the two partitions compactly:
+```
+// partition on a:
+//   a = 0
+//   a = 1
+//   a is small integer > 1
+//   a is small integer < 0
+//   a is large positive integer
+//   a is large negative integer
+//      (where "small" fits in long, and "large" doesn't)
+// partition on b:
+//   b = 0
+//   b = 1
+//   b is small integer > 1
+//   b is small integer < 0
+//   b is large positive integer
+//   b is large negative integer
+```
+***We still want to cover every subdomain with a test case, but now a single test case can cover multiple subdomains from different partitions, making the the suite more efficient.***
+
+<br>Partitioning *a* and *b* independently raises the risk that you're no longer testing the interaction between them. 
+- sign handling in multiplication is a possible source of bugs, and the sign of the result depends on the signs of both *a* and *b*.
+- but we can add an additional partition that captures this interaction:
+```
+// partition on signs of *a* and *b:*
+//    a and b are both positive
+//    a and b are both negative
+//    a positive and b negative
+//    a negative and b positive
+//    one or both are 0
+```
+*Now we have three partitions, with 6, 6, and 5 subdomains each, but we don't need the Cartesian product of 6 x 6 x 5 test cases to cover them. **A test suit with 6 carefully-chosen test cases can cover the subdomains of all three partitions.***
+- Test suit -> partitions -> test cases -> subdomains
+- We can continue to add partitions this way, as we think more about the spec and observe other behavioral variations that might lead to bugs. 
+- With careful test case selection, additional partitions should require few (if any) additional test cases.
+- Sometimes we may want to use the Cartesian product approach on multiple partitions, to produce a more thorough test suite. But even in those cases, the Cartesian product may be smaller than we expect. 
+- When subdomains from different partitions turn out to be mutually exclusive, the Cartesian product won't include a subdomains for that particular combination of subdomains. 
+
+<br>As stating point for test-first programming, a small test suite that covers each subdomain of several thoughtfully-chosen partitions strikes a good balance between size and thoroughness.
+- The test suite may then grow further with glass box testing, code coverage measurement, and regression testing, which we'll see later in this reading. 
+
+<br>**Example 1:** 
+```
+/**
+ * Reverses the end of a string.
+ *
+ *                          012345                     012345
+ * For example: reverseEnd("Hello, world", 5) returns "Hellodlrow ,"
+ *                               <----->                    <----->
+ *
+ * With start == 0, reverses the entire text.
+ * With start == text.length(), reverses nothing.
+ *
+ * @param text    string that will have its end reversed
+ * @param start   the index at which the remainder of the input is reversed,
+ *                requires 0 <= start <= text.length()
+ * @return input text with the substring from start to the end of the string reversed
+ */
+public static String reverseEnd(String text, int start)
+```
+Partitions for the start parameter:
+<br>`start = 0; 0 < start < text.length(); start = text.length()`
+- ***A partition should be a division of the whole space of possible start values, not specific test cases.***
+- ***A test case must obey the requirements of the funtion's specifications.***
+  
+<br>Partitions for the text parameter: 
+<br>`text.length() = 0; text.length() > 0`
+<br>`text.length() = 0; text.length()-start is odd; text.length()-start is even (> 0)`
+- Legth is a useful partition, however, since it can interact with the start parameter.
+- Partitioning on even and odd length is also reasonable, because reversing an odd-length substring has different behavior (since it leaves the middle element in place).
+
+
+
+
+
+
+
+
+
