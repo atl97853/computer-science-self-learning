@@ -90,9 +90,16 @@
 - <ins>so that every input lies in exactly one subdomain</ins> 
 - <ins>then we choose one test case from each subdomain, and that's our test suite</ins> 
 
-<br>*test case = particular choice of inputs* * / subdomains are not the same as test cases. 
+<br>subdomains are not the same as test cases. 
 <br>*subdomains* = are set inputs from which test cases are chosen.
 <br>*test suit = set of test cases* * 
+
+<br>**Test suites** = group related test cases.
+<br>***Partitions*** = categorize possible inputs.
+<br>***Subdomains*** = are refinements within partitions.
+<br>***Test cases*** = are specific scenarios with defined inputs, outputs, and steps, (particular choice of inputs).
+
+- ***Test suit -> partitions -> subdomains -> test cases***
 - The idea behind subdomains is to dived the input space into sets of similar inputs on which the program has similar behavior.
 - Then we use one representative of each set.
 - *a partition* must completely cover the set of possible inputs.
@@ -261,6 +268,7 @@ This method is using the self-object as a second parameter, although there is on
 //   a is large positive integer
 //   a is large negative integer
 //      (where "small" fits in long, and "large" doesn't)
+
 // partition on b:
 //   b = 0
 //   b = 1
@@ -283,13 +291,13 @@ This method is using the self-object as a second parameter, although there is on
 //    one or both are 0
 ```
 *Now we have three partitions, with 6, 6, and 5 subdomains each, but we don't need the Cartesian product of 6 x 6 x 5 test cases to cover them. **A test suit with 6 carefully-chosen test cases can cover the subdomains of all three partitions.***
-- Test suit -> partitions -> test cases -> subdomains
+- ***Test suit -> partitions -> subdomains -> test cases***
 - We can continue to add partitions this way, as we think more about the spec and observe other behavioral variations that might lead to bugs. 
 - With careful test case selection, additional partitions should require few (if any) additional test cases.
 - Sometimes we may want to use the Cartesian product approach on multiple partitions, to produce a more thorough test suite. But even in those cases, the Cartesian product may be smaller than we expect. 
 - When subdomains from different partitions turn out to be mutually exclusive, the Cartesian product won't include a subdomains for that particular combination of subdomains. 
 
-<br>As stating point for test-first programming, a small test suite that covers each subdomain of several thoughtfully-chosen partitions strikes a good balance between size and thoroughness.
+<br>***As stating point for test-first programming, a small test suite that covers each subdomain of several thoughtfully-chosen partitions strikes a good balance between size and thoroughness.***
 - The test suite may then grow further with glass box testing, code coverage measurement, and regression testing, which we'll see later in this reading. 
 
 <br>**Example 1:** 
@@ -321,6 +329,8 @@ Partitions for the start parameter:
 <br>`text.length() = 0; text.length()-start is odd; text.length()-start is even (> 0)`
 - Legth is a useful partition, however, since it can interact with the start parameter.
 - Partitioning on even and odd length is also reasonable, because reversing an odd-length substring has different behavior (since it leaves the middle element in place).
+
+
 
 
 
