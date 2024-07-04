@@ -383,3 +383,64 @@ public void testDrawFromSet() {
 Every assertion method accepts an optional *message argument*, this assertion is correct and useful for debugging:
 <br>`assertTrue(set.contains(result), "expected result to be from" + set + "but actually was" + result);`
 <br>`AssertionFailedError: expected result to be from [293, 10, -3, 99] but actually was 0 ==> expected: <true> but was <false>`
+
+## Documenting your testing stragegy 
+It's a good idea to write down the testing strategy you used to create a test suite: ***the partitions, their subdomains, and which subdomains each test case was chosen to cover.***
+<br>Document the **partitions** and **subdomains** in a comment at the top of the **JUnit test class**:
+```
+public class MaxTest {
+  /*
+   * Testing strategy
+   *
+   * partition:
+   *    a < b
+   *    a > b
+   *    a = b
+   */
+```
+Each **test case** should have a comment above it saying which **subdomain** it covers:
+```
+  // covers a < b
+  @Test
+  public void testALessThanB() {
+      assertEquals(2, Math.max(1, 2));
+  }
+```
+***Most test suites will have more than one partition, and most test cases will cover multiple subdomains:***
+```
+public class Multiply {
+  /*
+   * Testing strategy
+   *
+   * cover the cartesian product of these partitions:
+   *   partition on a: positive, negative, 0
+   *   partition on b: positive, negative, 0
+   *   partition on a: 1, !=1
+   *   partition on b: 1, !=1
+   *   partition on a: small (fits in a long value), or large (doesn't fit)
+   *   partition on b: small, large
+   * 
+   * cover the subdomains of these partitions:
+   *   partition on signs of a and b:
+   *      both positive
+   *      both negative
+   *      different signs
+   *      one or both are 0
+   */
+```
+Then every **test case** has a comment identifying the **subdomains** that it was chosen to cover:
+```
+  // covers a is positive, b is negative, 
+  //        a fits in long value, b fits in long value,
+  //        a and b have different signs
+  @Test
+  public void testDifferentSigns() {
+      assertEquals(BigInteger.valueOf(-146), BigInteger.valueOf(73).multiply(BigInteger.valueOf(-2)));
+  }
+
+  // covers a = 1, b != 1, a and b have same sign
+  @Test
+  public void testIdentity() {
+      assertEquals(BigInteger.valueOf(33), BigInteger.valueOf(1).multiply(BigInteger.valueOf(33)));
+  }
+```
