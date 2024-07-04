@@ -344,13 +344,42 @@ Partitions for the start parameter:
   - Multiple test cases can be created from a single subdomain to explore different scenarios within that variation.
 
 ## Automated unit testing with JUnit
+-A well-tested program will have tests for every individual module that it contains.
+<br>-A test that tests an individual module, in isolation if possible, is called a unit test. 
+<br>-JUnit is a widely-adopted Java unit testing library, it will be used heavily in 6.031
+- A JUnit unit test is written as a method preceded by the annotation `@Test`.
+- A unit test method typically contains one or more calls to the module being tested, and then checks the results using assertion methods like `assertEquals` , `assertTrue`, and `assertFalse` .
+- The order of the parameters is important: `assertEquals(expected result, actual result);`
+  - The first parameter should be the *expected* result, usually a constant.
+  - The second parameter is the *actual* result, what the code actually does. 
+  - An assertion can also take an optional message string as the last argument, which you can use to make the test failure clearer.
+- If an assertion in a test method fails, then that test method returns immediately, and JUnit records a failure for that test.
+- A test class can contain any number of `@Test` methods
+  - which are run independently when you run the test class JUnit, even if one test method fails, the others will still be run. 
 
+**Example 1**:
+```
+public class AbsTest {
+  @Test
+  public void test() {
+    int result = Math.abs(-3);
+    assertEquals(3, result);
+  }
+}
+```
+The value expected by the test, in this case 3, should be the first argument of assertEquals. The value actually returned by the module under test, result, should be the second argument. This allows JUnit to display understandable information to the programmer when the test fails:
+<br>`AssertionFailedError: expected: <3> but was: <-3>`
+<br>If the parameters to assertEquals are in the wrong order, this message will be very misleading. 
 
-
-
-
-
-
-
-
-
+<br>**Example 2:**
+<br> This test is intended to test a method pickRandomly() that picks random number from its set.
+```
+@Test
+public void testDrawFromSet() {
+  Set<Integer> set = Set.of(293, 10, -3, 99);
+  int result = pickRandomly(set);
+}
+```
+Every assertion method accepts an optional *message argument*, this assertion is correct and useful for debugging:
+<br>`assertTrue(set.contains(result), "expected result to be from" + set + "but actually was" + result);`
+<br>`AssertionFailedError: expected result to be from [293, 10, -3, 99] but actually was 0 ==> expected: <true> but was <false>`
