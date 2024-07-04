@@ -444,3 +444,15 @@ Then every **test case** has a comment identifying the **subdomains** that it wa
       assertEquals(BigInteger.valueOf(33), BigInteger.valueOf(1).multiply(BigInteger.valueOf(33)));
   }
 ```
+
+## Black box and glass box testing 
+**Black box testing:**
+- *means choosing test cases only from the specification*, not the implementation of the function. 
+- we partitioned and looked for boundaries, without looking at the actual code. 
+- following the *test-first programming approach*, we hadn't even written the implementation.
+
+<br>**Glass box testing:**
+- means *choosing test cases with knowledge of how the function is actually implemented* 
+- when doing glass box testing, you must take care that your test cases don't *require specific implementation behavior that isn't specifically called for by the spec. 
+  - **example:** if the spec says "throws an exception if the input is poorly formatted", then your test shouldn't check specifically for a `NullPointerException` just because that's what the current implementation does. 
+  - the specification in this case allows *any* exception to be thrown, so your test case should likewise be general in order to be correct and preserve the implementor's freedom. 
