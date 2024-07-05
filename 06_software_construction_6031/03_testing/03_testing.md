@@ -450,12 +450,14 @@ Then every **test case** has a comment identifying the **subdomains** that it wa
 - *means choosing test cases only from the specification*, not the implementation of the function. 
 - we partitioned and looked for boundaries, without looking at the actual code. 
 - following the *test-first programming approach*, we hadn't even written the implementation.
+- **focus more in the specification**
 
 <br>**Glass box testing:**
 - means *choosing test cases with knowledge of how the function is actually implemented* 
 - when doing glass box testing, you must take care that your test cases don't *require specific implementation behavior that isn't specifically called for by the spec. 
   - **example:** if the spec says "throws an exception if the input is poorly formatted", then your test shouldn't check specifically for a `NullPointerException` just because that's what the current implementation does. 
   - the specification in this case allows *any* exception to be thrown, so your test case should likewise be general in order to be correct and preserve the implementor's freedom. 
+- **focus more in the implementation**
 
 ## Coverage 
 One way to judge a test suite is to ask how thoroughly it exercises the program. This notion is called ***coverage***. Here are three common kinds of coverage: 
@@ -534,7 +536,7 @@ Once you have test automation, it's very important to ***rerun*** your test when
 - Running the tests frequently while you’re changing the code prevents your program from regressing
   
 <br>**Regressing:** introducing other bugs when you fix new bugs or add new features. 
-<br>**Regression testing:** Running all your tests after every change is called regression testing.
+<br>**Regression testing:** Running all your tests after every change is called regression testing. Test new changes to the code against existing test cases. 
 
 ***Whenever you find and fix a bug, take the input that elicited the bug and add it to your automated test suite as a test case.***
 - This kind of test case is called a regression test.
@@ -545,3 +547,71 @@ Once you have test automation, it's very important to ***rerun*** your test when
 - ***Once you find and fix the bug, all your test cases will be passing, and you’ll be done with debugging and have a regression test for that bug.***
 
 In practice, ***these two ideas***, automated testing and regression testing, ***are almost always used in combination***. Regression testing is only practical if the tests can be run often, automatically. Conversely, if you already have automated testing in place for your project, then you might as well use it to prevent regressions. ***So automated regression testing is a best-practice of modern software engineering.***
+
+## When you should rerun all your JUnit tests? (extra)
+Before doing git add/commit/push
+- Pushing your code to git sends it to the rest of your team, so rerun the tests first to make sure you’re not pushing broken code.
+
+After rewriting a function to make it faster
+- Rewriting a function may introduce bugs, so rerun your tests to find them.
+
+When using a code **coverage tool**
+- Rerunning tests is an essential part of using a code coverage tool, **because you want to see the code lines that your tests don’t reach.**
+
+After you think you fixed a bug
+- Fixing a bug is a change to your program, and you should rerun your tests after every change.
+
+## Iterative test-first programming 
+Effective software engineering does not follow a linear process, Practice iterative test-first programming, in which you are prepared to go back and revise your work in previous steps: 
+- **Write a specification for the function.**
+- **Write tests that exercise the spec. As you find problems, iterate on the spec and the tests.**
+- **Write an implementation. As you find problems, iterate on the spec, the tests, and the implementation.**
+
+Each step helps to validate the previous steps:
+- Writing tests is a good way to understand the specification.
+  - The specification can be incorrect, incomplete, ambiguous, or missing corner cases. **Trying to write tests can uncover these problems early, before you’ve wasted time working on an implementation of a buggy spec.**
+- **Similarly, writing the implementation may help you discover missing or incorrect tests, or prompt you to revisit and revise the specification.**
+
+### Plan for iteration:
+Since it may be necessary to iterate on previous steps, **it doesn’t make sense to devote enormous amounts of time making one step perfect before moving on to the next step:**
+
+- **For a large specification, start by writing only one part of the spec, proceed to test and implement that part, then iterate with a more complete spec**.
+
+- **For a complex test suite, start by choosing a few important partitions, and create a small test suite for them.** Proceed with a simple implementation that passes those tests, and then iterate on the test suite with more partitions.
+
+- **For a tricky implementation, first write a simple brute-force implementation that tests your spec and validates your test suite.** Then move on to the harder implementation with confidence that your spec is good and your tests are correct.
+
+Iteration means reaching a **rough solution as soon as possible**, and then steadily refining and improving it, so that you have time to discard and rework if necessary.
+
+Iteration makes the best use of your time when a problem is difficult and the solution space is unknown.
+
+Before any code is written: 
+- black box, partitioning and boundaries 
+
+Validate specification before implementation: 
+- black box, and without context: writing a simple linear-search algorithm
+
+validate test suite before implementation: 
+- running a code coverage tool on a simple implementation, static typechecking by running the Java compiler, writing a simple linear-search algorithm
+
+Find and remove bugs in your spec and test suite before implementation: 
+- so that when a bug arises, you can assume that the bug is probably in the implementation code, rather than the spec or tests
+- because fixing bugs in the spec can force major changes on the implementation
+- Debugging the spec and tests first, using a simple linear-search algorithm, gives you more confidence that the spec and tests are correct. Then, if you have a bug while you’re writing the tricky implementation, you can give the spec and tests the benefit of the doubt, and focus your debugging effort on the implementation code you’ve just written.
+
+## Summary 
+In this reading, we saw these ideas:
+
+- Test-first programming. Write tests before you write code.
+- Systematic testing with partitioning and boundary values, to design a test suite that is correct, thorough, and small.
+- Glass box testing and statement coverage for filling out a test suite.
+- Unit-testing each module, in isolation as much as possible.
+- Automated regression testing to keep bugs from coming back.
+- Iterative development. Plan to redo some work.
+
+Safe from bugs. Testing is about finding bugs in your code, and test-first programming is about finding them as early as possible, right after you introduce them.
+
+Easy to understand. Systematic testing with a documented testing strategy makes it easier to understand how test cases were chosen and how thorough a test suite is.
+
+Ready for change. Correct test suites only depend on behavior in the spec, which allows the implementation to change within the confines of the spec. We also talked about automated regression testing, which helps keep bugs from coming back when changes are made to code.
+
