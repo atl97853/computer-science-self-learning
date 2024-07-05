@@ -99,7 +99,7 @@ Hacking is often marked by unbridled optimism:
 But software engineering is not hacking. Engineers are pessimists: 
 - Good: write a little bit at a time, testing as you go. (in a future class, we'll talk about test-first programming).
 - Good: document the assuptions that your code depends on. 
-- Good: defend your cade against stupidity, *especially your own, static checking helps with that.*
+- Good: defend your code against stupidity, *especially your own, static checking helps with that.*
 
 *Assumptions that aren't self-documenting* in the code would have to be documented using comments in the code instead. 
 
