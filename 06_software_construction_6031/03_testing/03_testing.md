@@ -520,3 +520,28 @@ In our test suite, we would want:
 <br>Don't make the mistake of writing test cases for extract in such a way that the test cases depend on load to be correct. 
 <br>It's better to think about and test extract in isolation, using test partitions that involve ***realistic file content*** might be reasonable. 
 <br>When you are testing in combination with other new modules, it's an integration test.
+
+## Automated regression testing 
+**Automated testing** means running the tests and checking their results automatically. 
+- The code that runs tests on a module is a *test driver*
+- a test driver should invoke the module itself on fixed test cases and automatically check that the results are correct
+- the results should be either "all tests OK" or "these tests failed: ..."
+
+Once you have test automation, it's very important to ***rerun*** your test when you modify your code. 
+- Any chance yo a large or complex program is dangerous 
+- Whether you're 
+  - fixing another bug, adding a new feature, or optimizing the code to make it faster
+- Running the tests frequently while you’re changing the code prevents your program from regressing
+  
+<br>**Regressing:** introducing other bugs when you fix new bugs or add new features. 
+<br>**Regression testing:** Running all your tests after every change is called regression testing.
+
+***Whenever you find and fix a bug, take the input that elicited the bug and add it to your automated test suite as a test case.***
+- This kind of test case is called a regression test.
+- This helps to populate your test suite with good test cases.
+- Saving regression tests also protects against reversions that reintroduce the bug.
+- The bug may be an easy error to make, since it happened once already.
+- ***When a bug arises, immediately write a test case for it that elicits it, and immediately add it to your test suite.***
+- ***Once you find and fix the bug, all your test cases will be passing, and you’ll be done with debugging and have a regression test for that bug.***
+
+In practice, ***these two ideas***, automated testing and regression testing, ***are almost always used in combination***. Regression testing is only practical if the tests can be run often, automatically. Conversely, if you already have automated testing in place for your project, then you might as well use it to prevent regressions. ***So automated regression testing is a best-practice of modern software engineering.***
