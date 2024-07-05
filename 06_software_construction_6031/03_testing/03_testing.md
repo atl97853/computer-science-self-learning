@@ -468,7 +468,55 @@ One way to judge a test suite is to ask how thoroughly it exercises the program.
 - 100% **branch coverage** is highly desirable, and safety critical industry code has even more arduos criteria. 
 - Unfortunately 100% path coverage is infeasible, requiring exponential-size test suites to achieve. 
 
-<br>A standard approach to testing is to add tests until the test suite achieves adequate statement coverage
+<br>**A standard approach to testing is to add tests until the test suite achieves adequate statement coverage**
 - so that every reachable statement in the program is executed by at least one test case. 
 - in practice, statement coverage is usually measured by a code coverage tool, which counts the number of times each statement is run by your test suite. 
-- with such a tool, glass box testing is easy, you just measure the coverage of your black box tests, and add more test cases until all important statements are logged as executed. 
+- with such a tool, glass box testing is easy, you just measure the coverage of your black box tests, **and add more test cases until all important statements are logged as executed.**
+
+## Unit and integration testing 
+**Unit tests**: ***Testing modules in isolation*** leads to much easier debugging, when a unit test for a module fails, *you can be more confident that the bug is found in that module*, rather than anywhere in the program.
+
+<br>**Integration test**: tests a combination of modules, or even the entire program. 
+- If all you have are integration tests, then when a test fails, you have to hunt for the bug, and it might be anywhere in the program. 
+- Integration tests are still important, because a program can fail at the ***connections between modules.***
+- **Example:** one module may be expecting different inputs than it's actually getting from another module, but if you have thorough set of unit tests that give you confidence in the correctness of individual modules, then you'll have much less searching to do to find the bug. 
+
+<br>**Example 1:**
+<br>Suppose you're bulding a document search engine. Two of your modules might be load(), which loads a file, and extract(), which splits a document into its component words: 
+```
+/** 
+ * @return the contents of the file
+ */
+public static String load(File file) { ... }
+
+/** 
+ * @return the words in string s, in the order they appear, 
+ *         where a word is a contiguous sequence of 
+ *         non-whitespace and non-punctuation characters 
+ */
+public static List<String> extract(String s) { ... }
+```
+These methods might be used by another module index() to make the search engine's index: 
+```
+/**
+ * @return an index mapping a word to the set of files
+ *         containing that word, for all files in the input set 
+ */
+public static Map<String, Set<File>> index(Set<File> files) { 
+    ...
+    for (File file : files) {
+        String doc = load(file);
+        List<String> words = extract(doc);
+        ...
+    }
+    ...
+} 
+```
+In our test suite, we would want: 
+- unit tests just for load that test it on various files 
+- unit tests just for extract that test it on various strings 
+- unit tests for index that test it on various sets of files 
+
+<br>Don't make the mistake of writing test cases for extract in such a way that the test cases depend on load to be correct. 
+<br>It's better to think about and test extract in isolation, using test partitions that involve ***realistic file content*** might be reasonable. 
+<br>When you are testing in combination with other new modules, it's an integration test.
