@@ -456,3 +456,19 @@ Then every **test case** has a comment identifying the **subdomains** that it wa
 - when doing glass box testing, you must take care that your test cases don't *require specific implementation behavior that isn't specifically called for by the spec. 
   - **example:** if the spec says "throws an exception if the input is poorly formatted", then your test shouldn't check specifically for a `NullPointerException` just because that's what the current implementation does. 
   - the specification in this case allows *any* exception to be thrown, so your test case should likewise be general in order to be correct and preserve the implementor's freedom. 
+
+## Coverage 
+One way to judge a test suite is to ask how thoroughly it exercises the program. This notion is called ***coverage***. Here are three common kinds of coverage: 
+- **Statement coverage**: is every statement run by some test case? 
+- **Branch coverage**: for every if or while statement in the program, are both the true and the false direction taken by some test case? 
+- **Path coverage**: is every possible combination of banches (every path through the program) taken by some test case? 
+
+<br>**Branch coverage**  is stronger (requires more tests to achieve) than **statement coverage**, and **path coverage** is stronger than **branch coverage**.
+- In industry, 100% **stament coverage** is a common goal, but even that is rarely achieved due to unreachable defensive code (like "should never get here" assertions).
+- 100% **branch coverage** is highly desirable, and safety critical industry code has even more arduos criteria. 
+- Unfortunately 100% path coverage is infeasible, requiring exponential-size test suites to achieve. 
+
+<br>A standard approach to testing is to add tests until the test suite achieves adequate statement coverage
+- so that every reachable statement in the program is executed by at least one test case. 
+- in practice, statement coverage is usually measured by a code coverage tool, which counts the number of times each statement is run by your test suite. 
+- with such a tool, glass box testing is easy, you just measure the coverage of your black box tests, and add more test cases until all important statements are logged as executed. 
