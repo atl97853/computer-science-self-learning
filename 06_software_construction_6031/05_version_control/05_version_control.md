@@ -1,0 +1,135 @@
+# Reading 5: Version Control 
+
+### Objectives:
+- Know what version control is and why we use it
+- Understand how Git stores version history as a graph
+- Practice reading, creating, and using version history
+
+## Introduction 
+Version control: 
+- It's the software engineering practice of controlling computer files and versions of files; primarily source code text files, but generally any type of file.
+
+Version control system: 
+- It's a software tool that automates version control. Alternatively, version control is embedded as a feature of some systems such as word processors, spreadsheets, collaborative web docs, and content management systems
+
+Version control systems are essential tools of the software engineering world. More or less every project — serious or hobby, open source or proprietary — uses version control.
+
+## Inventing version control
+
+standard software tools for comparing text; in the UNIX world, one such tool is diff. A better version control system will make diffs easy to generate.
+
+At this point, considering just the scenario of one programmer working alone, we already have a list of operations that should be supported by a version control scheme:
+
+- reverting to a past version
+- comparing two different versions
+- pushing full version history to another location
+- pulling history back from that location
+- merging versions that are offshoots of the same earlier version
+
+### Multiple developers 
+
+The two programmers must coordinate on a scheme for coming up with version numbers. Ideally, the scheme allows us to assign clear names to whole sets of files, not just individual files. 
+- (Files depend on other files, so thinking about them in isolation allows inconsistencies.)
+
+### Multiple branches
+
+### The shocking conclusion 
+Of course, it turns out we haven’t invented anything here: Git does all these things for you, and so do many other version control systems.
+- Git is a free and open source distributed version control system
+
+### Distributed vs. centralized
+
+
+### Version control terminology 
+
+### Features of a version control system 
+
+## Git 
+
+### Getting started with Git
+### The Git object graph
+
+### 1.3 Getting Started - What is Git? 
+
+Git thinks of its data more like a series of snapshots of a miniature filesystem.
+
+- Git basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot. 
+- To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file it has already stored.
+- Git thinks about its data more like a **stream of snapshots.**
+- This is an important distinction between Git and nearly all other VCSs.
+
+**Nearly Every Operation Is Local**
+
+Most operations in Git need only local files and resources to operate — generally no information is needed from another computer on your network
+
+Because you have the entire history of the project right there on your local disk, most operations seem almost instantaneous.
+
+**For example:**
+- To browse the history of the project, Git doesn’t need to go out to the server to get the history and display it for you — it simply reads it directly from your local database.
+- If you want to see the changes introduced between the current version of a file and the file a month ago, Git can look up the file a month ago and do a local difference calculation, instead of having to either ask a remote server to do it or pull an older version of the file from the remote server to do it locally.
+- This also means that there is very little you can’t do if you’re offline or off VPN. If you get on an airplane or a train and want to do a little work, you can commit happily:
+  - (to your local copy, remember?) until you get to a network connection to upload.
+
+**Git Has Integrity**
+
+Everything in Git is checksummed before it is stored and is then referred to by that checksum.
+- This means it’s impossible to change the contents of any file or directory without Git knowing about it.
+- You can’t lose information in transit or get file corruption without Git being able to detect it.
+
+***The mechanism that Git uses for this checksumming is called a SHA-1 hash.*** This is a 40-character string composed of hexadecimal characters (0–9 and a–f) and calculated based on the contents of a file or directory structure in Git. A SHA-1 hash looks something like this:
+- `24b9da6552252987aa493b52f8696cd6d3b00373`
+
+You will see these hash values all over the place in Git because it uses them so much. In fact, Git stores everything in its database not by file name but by the hash value of its contents.
+
+**Git Generally Only Adds Data**
+
+When you do actions in Git, nearly all of them only add data to the Git database. It is hard to get the system to do anything that is not undoable or to make it erase data in any way.
+- We can experiment without the danger of severely screwing things up. 
+
+**The Three States**
+
+***Pay attention now — here is the main thing to remember about Git if you want the rest of your learning process to go smoothly.***
+
+***Git has three main states that your files can reside in***
+- ***Modified.*** Modified means that you have changed the file but have not commited it to your database yet. 
+- ***Staged.*** Staged means that you have marked a modified file in its current version to go into your next commit snapshot. 
+- ***Committed.*** Commited means that the data is safely stored in your local database. 
+
+***This leads us to the three main sections of a Git project:***
+- The working tree 
+- The staging area 
+- The Git directory
+
+(Git)
+
+**The working tree** is a single checkout of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.
+- In simpler terms, think of the working tree as your desk where you're actively working on your project files. Git, on the other hand, is like a filing cabinet that stores different versions of your project (like snapshots of your messy desk at different points in time).
+- So, the working tree is more like a dynamic workspace where you interact with the current state of your project files, while the Git repository acts like a central storage for all the versions and history.
+- 
+**The staging area** is a file, generally contained in your Git directory, that stores information about ***what will go into your next commit.*** Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
+- The staging area in Git, also sometimes called the index, acts as an intermediary zone between your working tree and the Git repository. It's like a staging area for a play before the final performance (the commit).
+
+**The Git directory** is where Git stores the metadata and object database for your project. This is ***the most important part of Git***, and ***it is what is copied when you clone a repository from another computer.***
+
+
+**Here's a breakdown of the three sections and their roles:** (Gemini)
+
+- **Working Tree:** This is the directory containing your current project files that you actively work on. It represents the ever-changing state of your project.
+- **Staging Area (Index):** This acts as a temporary holding area for changes you plan to include in your next commit. You choose which specific changes from your working tree to "stage" here.
+- **Git Directory (.git directory):** This hidden folder is the heart of the Git system. It stores the project's version history, including:
+  - Commits: Snapshots of your project state at specific points in time.
+  - Branches: Different development paths you can work on simultaneously.
+  - References to different versions of files: This allows Git to track changes efficiently without storing duplicate copies of entire files.
+  - 
+So, while "the Git directory" might be used loosely to refer to the entire repository in everyday conversation, technically it refers to the specific hidden folder (.git) that manages the project's historical data.
+
+**The basic Git workflow goes something like this:**
+- You modify files in your working tree.
+- You selectively stage just those changes you want to be part of your next commit, which adds only those changes to the staging area.
+- You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.
+
+
+**When you run git commit, the following happens:**
+- The staged changes are captured: The specific versions of files you added to the staging area are taken as a snapshot.
+- The commit object is created: This object stores the snapshot of the staged files, along with your commit message.
+- The commit object is stored in the Git directory: This permanent record of the project state becomes part of the Git repository's history, residing within the .git folder.
