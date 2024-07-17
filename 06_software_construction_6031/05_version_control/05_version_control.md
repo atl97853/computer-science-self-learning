@@ -228,4 +228,4 @@ The history DAG changes from tree- to graph-shaped when the branching changes ar
 
 How is it that changes are merged together? First we’ll need to understand how history is shared between different users and repositories.
 
-## Send and receive object graphs
+## Send and receive object graphs with git push and git pull
