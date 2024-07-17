@@ -133,3 +133,99 @@ So, while "the Git directory" might be used loosely to refer to the entire repos
 - The staged changes are captured: The specific versions of files you added to the staging area are taken as a snapshot.
 - The commit object is created: This object stores the snapshot of the staged files, along with your commit message.
 - The commit object is stored in the Git directory: This permanent record of the project state becomes part of the Git repository's history, residing within the .git folder.
+
+## Copy an object graph with git clone
+
+**The object graph** is stored on disk in a convenient and efficient structure for performing Git operations, but not in a format we can easily use.
+
+In Git, we obtain normal copies of our files by checking them out from the object graph.
+
+**The history graph** is the backbone of the full object graph stored in .git, so let’s focus on it for a minute.
+
+Each commit is identified by a unique ID, displayed as a hexadecimal number.
+
+Except for the initial commit, each commit has a pointer to a parent commit. For example, commit 1255f4e has parent 41c4b8f: this means 41c4b8f happened first, then 1255f4e.
+
+Some commits have the same parent. They are versions that diverged from a common previous version, for example because two developers were working independently.
+
+And a commit can have two parents. This is a version that ties divergent histories back together, for example because those developers then merged their work together again.
+
+The HEAD commit is indeed the last commit made on the currently checked-out branch.
+
+Here's a quick recap:
+
+HEAD is a pointer to the latest commit in the active branch.
+When you make a new commit, HEAD moves to point to that new commit, making it the latest.
+So, the HEAD commit is always the most recent commit in your current branch's history.
+
+**What would be the meaning of a cycle in the history graph?**
+
+- Some commit is its own ancestor 
+- Some commit is a descendant of itself 
+- This is impossible 
+
+**The history graph is acyclic.** If commit A is the parent of commit B, or in general reachable by traversing directed parent edges from commit B, it means commit A existed before commit B. 
+
+If at the same time commit B is reachable by traversing directed parent edges from commit A, then commit B existed before commit A.
+ 
+Both of these conditions cannot be satisfied simultaneously. 
+
+## What else is in the object graph? 
+
+***When you commit, you're essentially creating a snapshot of your staged changes and storing that snapshot in the Git directory.***
+
+Here's a quick breakdown:
+
+- Staging area: Prepares the changes for the commit.
+- Commit: Creates a permanent record of the staged changes in the Git directory.
+
+the Git object graph stores each version of an individual file once, and allows multiple commits to share that one copy.
+
+## Add to the object graph with `git commit`
+
+How do we add new commits to the history graph?
+- git commit creates a new commit.
+
+The staging area is like a proto-commit, a commit-in-progress. 
+
+Here’s how we use the staging area and git add to build up a new snapshot, which we then cast in stone using git commit:
+- If we haven’t made any changes yet, then the working directory, staging area, and HEAD commit are all identical.
+- Make a change to a file. For example, let’s edit hello.txt.
+Other changes might be creating a new file, or deleting a file.
+- Stage those changes using git add.
+- Create a new commit out of all the staged changes using git commit.
+
+***Use git status frequently*** to keep track of whether you have no changes, unstaged changes, or staged changes; and whether you have new commits in your local repository that haven’t been pushed.
+
+## Reading Exercises
+
+The Java compiler compiles .java files into .class files. 
+<br>Should you commit .class files to version control?
+- no
+- 99% of the time, you should only commit your source files to version control, not their compiled binaries. Binaries aren’t human-readable (ETU) or -editable (RFC). If we keep them in the repo and they get out of sync with the source files, debugging the problem will be maddening because the running program doesn’t correspond to the source code! (SFB)
+- Git uses hidden files called .gitignore to specify files or directories that should be ignored by version control.
+
+Can we have both staged and unstaged changes at the same time?
+- yes 
+- Easy way: change two files, but only git add one of them. git status shows one file as staged, and the other file as still unstaged.
+- Tricky way: change one file, git add to stage it, and then make a further change to the same file. The first change is now staged, but the second change is still unstaged. git status shows the file as both staged and unstaged, which is confusing unless you realize that it refers to different changes made to the same file.
+
+After the commit, can there still be changes that are staged?
+- no 
+- git commit turns all staged changes into a commit, so there cannot be any remaining staged changes…
+
+Can there still be changes that are unstaged?
+- yes 
+- … but it does nothing to unstaged changes, so if there were unstaged changes before, they will still be there.
+
+**“Untracked changes”: a new file that has never been committed.**
+
+### Sequences, trees, and graphs
+
+When multiple commits share the same parent commit, our history DAG changes from a sequence to a tree: it branches apart. Notice that a branch in the history of the project doesn’t require anyone to create a new Git branch, merely that we start from the same commit and work in parallel on different copies of the repository.
+
+The history DAG changes from tree- to graph-shaped when the branching changes are merged together.
+
+How is it that changes are merged together? First we’ll need to understand how history is shared between different users and repositories.
+
+## Send and receive object graphs
