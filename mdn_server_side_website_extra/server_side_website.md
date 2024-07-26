@@ -55,3 +55,15 @@ https://developer.mozilla.org/en-US/docs/Learn/Server-side
 The Dynamic Websites – Server-side programming topic is a series of modules that show how to create dynamic websites; websites that deliver customized information in response to HTTP requests. The modules provide a general introduction to server-side programming, along with specific beginner-level guides on how to use the Django (Python) and Express (Node.js/JavaScript) web frameworks to create basic applications.
 
 next: first steps 
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+
+## What cookies are used for
+Cookies are mainly used for three purposes:
+
+- Session management: User sign-in status, shopping cart contents, game scores, or any other user session-related details that the server needs to remember.
+- Personalization: User preferences such as display language and UI theme.
+- Tracking: Recording and analyzing user behavior.
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/First_steps/Introduction
+## Introduction to the server side
