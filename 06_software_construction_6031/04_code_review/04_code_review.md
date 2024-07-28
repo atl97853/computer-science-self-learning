@@ -281,6 +281,22 @@ class Payment {
         System.out.println(p.value);
     }
 }
+
+public class Main {
+    public static int recursiveF(final int x) {
+        System.out.println("in" + x);
+        if (x <= 0 ) {
+            return x;
+        } else {
+            int y = x - 1;
+            System.out.println("out" + y);
+            return recursiveF(y);
+        }
+    }
+    public static void main(String[] args) {
+        recursiveF(3);
+    }
+}
 ```
 ***An instance variable*** comes into existence when an object is created with new, and then disappears when the object is no longer accessible and becomes garbage-collected. Each object instance has its own instance variables.
 
