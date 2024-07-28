@@ -42,10 +42,10 @@ function loopLibrary() {
 }
 
 
-addBookToLibrary("Book1", "Atl", "8", false);
-loopLibrary();
-addBookToLibrary("Book2", "Ragnar", "123", true);
-loopLibrary();
+addBookToLibrary("Book1", "Atl", 8, false);
+// loopLibrary();
+addBookToLibrary("Book2", "Ragnar", 123, true);
+// loopLibrary();
 addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, false);
 loopLibrary();
 
