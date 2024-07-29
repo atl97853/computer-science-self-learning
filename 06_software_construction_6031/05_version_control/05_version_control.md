@@ -16,7 +16,7 @@ Version control systems are essential tools of the software engineering world. M
 
 ## Inventing version control
 
-standard software tools for comparing text; in the UNIX world, one such tool is diff. A better version control system will make diffs easy to generate.
+Standard software tools for comparing text; in the UNIX world, one such tool is diff. A better version control system will make diffs easy to generate.
 
 At this point, considering just the scenario of one programmer working alone, we already have a list of operations that should be supported by a version control scheme:
 
@@ -31,7 +31,18 @@ At this point, considering just the scenario of one programmer working alone, we
 The two programmers must coordinate on a scheme for coming up with version numbers. Ideally, the scheme allows us to assign clear names to whole sets of files, not just individual files. 
 - (Files depend on other files, so thinking about them in isolation allows inconsistencies.)
 
+Pushing another version now gets a bit more complicated, as we need to merge the logs. This is easier to do than for Java files, since logs have a simpler structure – but without tool support, Alice and Bob will need to do it manually
 ### Multiple branches
+
+It sometimes makes sense for ***a subset of the developers to go off and work on a branch***, a parallel code universe for, say, ***experimenting with a new feature.*** 
+
+***The other developers don’t want to pull in the new feature until it is done***, even if several coordinated versions are created in the meantime.
+
+***Even a single developer can find it useful to create a branch***, for the same reasons that Alice was originally using the cloud server despite working alone.
+
+- ***It will be useful to have many shared places for exchanging project state.***
+- There may be multiple branch locations at once, each shared by several programmers.
+- With the right set-up, any programmer can pull from or push to any location, ***creating serious flexibility in cooperation patterns.***
 
 ### The shocking conclusion 
 Of course, it turns out we haven’t invented anything here: Git does all these things for you, and so do many other version control systems.
@@ -39,21 +50,58 @@ Of course, it turns out we haven’t invented anything here: Git does all these 
 
 ### Distributed vs. centralized
 
+Traditional centralized version control systems:
+- CVS, Subversion 
+- They support a collaboration graph – who’s sharing what changes with whom – with one primary server, and copies that only communicate with the primary server.
+- In a centralized system, everyone must share their work to and from the primary repository.
+- ***Changes are safely stored in version control if they are in the primary repository, because that’s the only repository.***
+
+Distributed version control systems:
+- Git, Mercurial 
+- Allow all sorts of different collaboration graphs
+  - where teams and subsets of teams can experiment easily with alternate versions of code and history, merging versions together as they are determined to be good ideas.
+- all repositories are created equal, and it’s up to users to assign them different roles.
+- Different users might share their work to and from different repos, and the team must decide what it means for a change to be in version control.
+  - Does a change in one programmer’s repo need to be shared with a designated collaborator or server before the rest of the team considers it official?
 
 ### Version control terminology 
 
+- **Repository:** a local or remote store of the versions in our project
+- **Working copy:** a local, editable copy of our project that we can work on
+- **File:** a single file in our project
+- **Version or revision:** a record of the contents of our project at a point in time
+- **Change or diff:** the difference between two versions
+- **Head:** the current version
+
 ### Features of a version control system 
 
+- **Reliable:** keep versions around for as long as we need them; allow backups
+- **Multiple files:** track versions of a project, not single files
+- **Meaningful versions:** what were the changes, why were they made?
+- **Revert:** restore old versions, in whole or in part
+- **Compare versions:** to see what changed
+- **Review history:** for the whole project or individual files
+- **Not just for code:** prose, images, …
+
+It should **allow multiple people to work together:**
+
+- **Merge:** combine versions that diverged from a common previous version
+- **Track responsibility:** who made that change, who touched that line of code?
+- **Work in parallel:** allow one programmer to work on their own for a while (without giving up version control)
+- **Work-in-progress:** allow multiple programmers to share unfinished work (without disrupting others, without giving up version control)
+
 ## Git 
+
+"Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
 
 ### Getting started with Git
 ### The Git object graph
 
 ### 1.3 Getting Started - What is Git? 
 
-Git thinks of its data more like a series of snapshots of a miniature filesystem.
+***Git thinks of its data more like a series of snapshots of a miniature filesystem.***
 
-- Git basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot. 
+- Every time you commit, or save the state of your project, ***git basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot.*** 
 - To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file it has already stored.
 - Git thinks about its data more like a **stream of snapshots.**
 - This is an important distinction between Git and nearly all other VCSs.
@@ -84,7 +132,10 @@ You will see these hash values all over the place in Git because it uses them so
 **Git Generally Only Adds Data**
 
 When you do actions in Git, nearly all of them only add data to the Git database. It is hard to get the system to do anything that is not undoable or to make it erase data in any way.
-- We can experiment without the danger of severely screwing things up. 
+
+After you commit a snapshot into Git, it is very difficult to lose, especially if you regularly push your database to another repository.
+
+- This makes using Git a joy because we know we can experiment without the danger of severely screwing things up. 
 
 **The Three States**
 
@@ -142,9 +193,9 @@ In Git, we obtain normal copies of our files by checking them out from the objec
 
 **The history graph** is the backbone of the full object graph stored in .git, so let’s focus on it for a minute.
 
-Each commit is identified by a unique ID, displayed as a hexadecimal number.
+***Each commit is identified by a unique ID, displayed as a hexadecimal number.***
 
-Except for the initial commit, each commit has a pointer to a parent commit. For example, commit 1255f4e has parent 41c4b8f: this means 41c4b8f happened first, then 1255f4e.
+***Except for the initial commit, each commit has a pointer to a parent commit.*** For example, commit 1255f4e has parent 41c4b8f: this means 41c4b8f happened first, then 1255f4e.
 
 Some commits have the same parent. They are versions that diverged from a common previous version, for example because two developers were working independently.
 
@@ -154,9 +205,12 @@ The HEAD commit is indeed the last commit made on the currently checked-out bran
 
 Here's a quick recap:
 
-HEAD is a pointer to the latest commit in the active branch.
-When you make a new commit, HEAD moves to point to that new commit, making it the latest.
-So, the HEAD commit is always the most recent commit in your current branch's history.
+***HEAD is a pointer to the latest commit in the active branch.
+When you make a new commit, HEAD moves to point to that new commit, making it the latest.***
+
+So, the ***HEAD commit is always the most recent commit in your current branch's history.***
+
+![alt text](./object_graph.png)
 
 **What would be the meaning of a cycle in the history graph?**
 
@@ -179,8 +233,7 @@ Here's a quick breakdown:
 - Staging area: Prepares the changes for the commit.
 - Commit: Creates a permanent record of the staged changes in the Git directory.
 
-the Git object graph stores each version of an individual file once, and allows multiple commits to share that one copy.
-
+***the Git object graph stores each version of an individual file once, and allows multiple commits to share that one copy.***
 ## Add to the object graph with `git commit`
 
 How do we add new commits to the history graph?
@@ -229,3 +282,6 @@ The history DAG changes from tree- to graph-shaped when the branching changes ar
 How is it that changes are merged together? First we’ll need to understand how history is shared between different users and repositories.
 
 ## Send and receive object graphs with git push and git pull
+
+We can send new commits to a remote repository using git push:
+
