@@ -187,6 +187,8 @@ So, while "the Git directory" might be used loosely to refer to the entire repos
 
 ## Copy an object graph with git clone
 
+(In essence, a Git object graph is a visual representation of the relationships between commits in your project.)
+
 **The object graph** is stored on disk in a convenient and efficient structure for performing Git operations, but not in a format we can easily use.
 
 In Git, we obtain normal copies of our files by checking them out from the object graph.
@@ -285,3 +287,13 @@ How is it that changes are merged together? First we’ll need to understand how
 
 We can send new commits to a remote repository using git push:
 
+`git push origin main`
+- when we clone a repository, we obtain a copy of the history graph
+- git remembers where we cloned from as a remote repository called **origin**
+- using `git commit`, we add new commits to the local history on the main brach
+- to send those changes back to the **origin** remote, we use  `git push origin main`
+- and we receive new commits using `git pull`
+- in addition to fetching new parts of the object graph, `git pull` also updates the working copy by checking out the lastest version (just like `git clone` checked out a working copy to start with)
+- ***if the remote repository and the local repository have both changed,*** `git pull` ***will try to merge those changes together.***
+
+## Mergin 
