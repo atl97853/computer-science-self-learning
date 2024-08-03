@@ -297,3 +297,33 @@ We can send new commits to a remote repository using git push:
 - ***if the remote repository and the local repository have both changed,*** `git pull` ***will try to merge those changes together.***
 
 ## Mergin 
+
+**Example:** 
+1) Both Alyssa and Ben clone the repository with two commits (41c4b8f and 1255f4e).
+2) Alyssa creates hello.scm and commits her change as 6400936.
+3) At the same time, Ben creates hello.rb and commits his change as 82e049e.
+At this point, both of their changes only exist in their local repositories. In each repo, main now points to a different commit.
+4) Let’s suppose Alyssa is the first to push her change up to the remote.
+5) What happens if Ben tries to push now? The push will be rejected: if the server updates main to point to Ben’s commit, Alyssa’s commit will disappear from the project history!
+6) Ben must merge his changes with Alyssa’s.
+To perform the merge, he pulls her commit from the remote, which does two things:
+   1) (a) Downloads new commits into Ben’s repository’s object graph
+   2) (b) Merges Ben’s history with Alyssa’s, creating a new commit (3e62e60) that joins together the two histories. This commit is a snapshot like any other: a snapshot of the repository with both of their changes applied.
+7) Now Ben can git push, because no history will go missing when he does.
+8) And Alyssa can git pull to obtain Ben’s work.
+
+In this example, Git was able to merge Alyssa’s and Ben’s changes automatically, because they each modified different files. ***If both of them had edited the same parts of the same files***, Git would report a ***merge conflict***. Ben would have to ***manually weave their changes together before committing the merge.*** 
+
+### Merges 
+
+Sometimes, when you try to push, things will go wrong. You might get an output like this: 
+
+`! [rejected]      main -> main (non-fast-forward)`
+
+What’s going on here is that Git won’t let you push to a repository unless all your commits come after all the ones already in the remote repository. If you get an error message like that, it means that there is a commit in your remote repository that you don’t have in your local one (on a project, probably because a teammate pushed before you did). If you find yourself in this situation, you have to pull first and then push.
+
+## Why do commits look like diffs?
+
+
+
+
