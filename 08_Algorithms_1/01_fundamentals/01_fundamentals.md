@@ -138,3 +138,32 @@ Last updated: Thu Aug 11 07:59:46 EDT 2022.
 - Wget | Wget.java
 - Right triangle | RightTrinagle.java 
 - Bouncing ball | BounchingBall.java 
+
+# 1.2 Data Abstraction 
+
+## Object-oriented programming: 
+
+***Programming in Java is largely based on building data types.*** ***This style of programming is known as object-oriented programming***, as it revolves around the concept of an object, an entity that holds a data type value.
+
+- **Data types.** A data type is a set of values and a set of operations on those values. 
+
+- **Abstract data types.** An abstract data type is a data type whose internal representation is hidden from the client. 
+
+- **Objects.** An object is an entity that can take on a data-type value. Objects are characterized by three essential properties:      
+  - The state of an object is a value from its data type; 
+  - the identity of an object distinguishes one object from another; 
+  - the behavior of an object is the effect of data-type operations. 
+  - In Java, a reference is a mechanism for accessing an object. 
+- **Applications programming interface (API).** To specify the behavior of an abstract data type, we use an application programming interface (API), which is a list of constructors and instance methods (operations), with an informal description of the effect of each.
+- **Client.** A client is a program that uses a data type. 
+- **Implementation.** An implementation is the code that implements the data type specified in an API. 
+- **Creating objects.** Each data-type value is stored in an object. To create (or instantiate) an individual object, we invoke a constructor by using the keyword new. Each time that a client uses new, the system allocates memory space for the object, initializes its value, and returns a reference to the object. 
+
+### Examples of abstract data types.
+- Geometric objects. A natural example of object-oriented programming is designing data types for geometric objects. 
+- Information processing. Abstract data types provide a natural mechanism for organizing and processing information. the information 
+- **Strings.** Java's String data type in an important and useful ADT. A String is an indexed sequence of char values. String has dozens of instance methods.
+
+### Implementing abstract data types.
+We implement ADTs with a Java class, putting the code in a file with the same name as the class, followed by the .java extension. The first statements in the file declare instance variables that define the data-type values. Following the instance variables are the constructor and the instance methods that implement operations on data-type values. 
+
