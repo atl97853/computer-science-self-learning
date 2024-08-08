@@ -133,7 +133,7 @@ Last updated: Thu Aug 11 07:59:46 EDT 2022.
 - If the key is equal to a[mid], the return value is mid; otherwise the method cuts the interval size about in half, looking at the left half if the key is less than a[mid] and at the right half if the key is greater than a[mid].
 - The process terminates when the key is found or the interval is empty. 
 
-**Exercises:** 
+### Exercises: 
 - Sattolo's algorithm | Sattolo.java
 - Wget | Wget.java
 - Right triangle | RightTrinagle.java 
@@ -165,5 +165,70 @@ Last updated: Thu Aug 11 07:59:46 EDT 2022.
 - **Strings.** Java's String data type in an important and useful ADT. A String is an indexed sequence of char values. String has dozens of instance methods.
 
 ### Implementing abstract data types.
-We implement ADTs with a Java class, putting the code in a file with the same name as the class, followed by the .java extension. The first statements in the file declare instance variables that define the data-type values. Following the instance variables are the constructor and the instance methods that implement operations on data-type values. 
+**We implement ADTs with a Java class**, putting the code in a file with the same name as the class, followed by the .java extension. The first statements in the file declare instance variables that define the data-type values. Following the instance variables are the constructor and the instance methods that implement operations on data-type values. 
+
+- Instance variables.To define data-type values (**the state of each object**), we declare instance variables in much the same way as we declare local variables, **we use private, using a Java language mechanism to enforce the idea that the representation of an ADT is to be hidden from the client, and also final, if the value is not to be changed once it is initialized.** 
+- Constructors. The constructor **establishes an object's identity and initializes the instance variables.**
+- Instance methods. **Instance methods specify the data-type operations.** Instance methods may be public (specified in the API) or private (used to organize the computation and not available to clients). 
+- Scope. Instance methods use three kinds of variables: **parameter variables, local variables, and instance variables.**
+
+![alt text](./images/counter-anatomy.png "Title")
+
+### Designing abstract data types.
+
+- **Encapsulation.** ***A hallmark of object-oriented programming is that it enables us to encapsulate data types within their implementations***, to facilitate separate development of clients and data type implementations. ***Encapsulation enables modular programming.*** 
+
+- **Designing APIs.** ***One of the most important and most challenging steps in building modern software is designing APIs.*** ***Ideally, an API would clearly articulate behavior for all possible inputs***, ***including side effects***, and then we would have ***software to check that implementations meet the specification***. Unfortunately, a fundamental result from theoretical computer science known as the ***specification problem*** implies that this goal is actually impossible to achieve. There are numerous potential pitfalls when designing an API: 
+  - Too hard to implement, making it difficult or impossible to develop.
+  - Too hard to use, leading to complicated client code. 
+  - Too narrow, omitting methods that clients need. 
+  - Too wide, including a large number of methods not needed by any client. 
+  - Too general, providing no useful abstractions. 
+  - Too specific, providing an abstraction so diffuse as to be useless.
+  - Too dependent on a particular representation, therefore not freeing client code from the details of the representation. 
+  - (**In summary, provide to clients the methods they need and no others.**)
+
+- **Algorithms and ADTs.** Data abstraction is naturally suited to the study of algorithms, because it helps us provide a framework within which we can precisely specify both what an algorithm needs to accomplish and how a client can make use of an algorithm. 
+
+- **Interface inheritance.** Java provides language support for defining **relationships among objects, known as inheritance.** The first inheritance mechanism that we consider is known as ***subtyping***, which **allows us to specify a relationship between otherwise unrelated classes by specifying in an interface a set of common methods that each implementing class must contain.**  
+
+- **Implementation inheritance.** Java also supports another inheritance mechanism known as ***subclassing***, which is a powerful technique that enables a programmer to **change behavior and add functionality without rewriting an entire class from scratch. The idea is to define a new class (subclass) that inherits instance methods and instance variables from another class (superclass).** We avoid subclassing in this book because it generally works against encapsulation. Certain vestiges of the approach are built in to Java and therefore unavoidable: specifically, **every class is a subclass of Object.**
+  -  Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class. 
+
+- **String conversion.** Every Java type inherits toString() from Object. This convention is the basis for Java's automatic conversion of one operand of the concatenation operator + to a String whenever the other operand is a String.
+
+- **Memory management.** One of Java's most significant features is its ability to automatically manage memory. When an object can no longer be referenced, it is said to be orphaned. Java keeps track of **orphaned objects** and returning the memory they use to a pool of free memory. Reclaiming memory in this way is known as **garbage collection.**
+
+- **Immutability**. An immutable data type has the property that the value of an object never changes once constructed. By contrast, a mutable data type manipulates object values that are intended to change. Java's language support for helping to enforce immutability is the **final** modifier. When you declare a variable to be final, you are promising to assign it a value only once, either in an initializer or in the constructor. Code that could modify the value of a final variable leads to a compile-time error. 
+
+- Exceptions and errors are disruptive events that handle unforeseen errors outside our control.
+  - `throw new RuntimeException("Error message here.");` create your own exceptions.
+
+### Exercises: 
+
+1. Write a Point2D.java client that takes an integer value N from the command line, generates N random points in the unit square, and computes the distance separating the closest pair of points. 
+
+2. Using our implementation of Date.java as a model, develop an implementation of Transaction.java. 
+
+3. Using our implementation of equals() in Date.java as a model, develop an implementation of equals() for Transaction.java. 
+
+(Creative Problems)
+
+4. Rational numbers. Implement an immutable data type Rational.java for rational numbers that supports addition, subtraction, multiplication, and division. 
+
+5. Sample variance for accumulator. Validate that the following code, which adds the methods var() and stddev() to Accumulator.java to compute the mean, sample variance, and sample standard deviation of the numbers presented as arguments to addDataValue(). 
+
+6. Parsing. Develop the parse constructors for your Date.java and Transaction.java implementations that take a single String argument to specify the initialization values, using the formats given in the table below. 
+
+# 1.3 Bags, Queues, and stacks. 
+
+**Several fundamental data types involve collections of objects.**
+
+Specifically, the set of values is a collection of objects, and the operations revolve around adding, removing, or examining objects in the collection.
+
+In this section, we consider three such data types, known as the bag, the queue, and the stack. They differ in the specification of which object is to be removed or examined next. 
+
+We define the APIs for bags, queues, and stacks. Beyond the basics, these APIs reflect two Java features: **generics and iterable collections.**
+
+![alt text](./images/collection-apis.png "Title")
 
