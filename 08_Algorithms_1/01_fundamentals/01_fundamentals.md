@@ -232,3 +232,67 @@ We define the APIs for bags, queues, and stacks. Beyond the basics, these APIs r
 
 ![alt text](./images/collection-apis.png "Title")
 
+**Generics:**
+
+- They were designed to extend Java's type system to allow "a type or method to operate on objects of various types while providing compile-time type safety"
+
+-  An essential characteristic of **collection ADTs** is that **we should be able to use them for any type of data.** A specific **Java mechanism known as generics enables this capability.** 
+
+The notation <Item> after the class name in each of our APIs defines the name Item as a type parameter, a symbolic placeholder for some concrete type to be used by the client.
+
+You can read Stack<Item> as "stack of items." For example, you can write code such as:
+```
+Stack<String> stack = new Stack<String>();
+stack.push("Test");
+...
+String next = stack.pop(); 
+```
+
+**Autoboxing:** 
+
+**Type parameters have to be instantiated as reference types**
+
+**so Java automatically converts** between a **primitive type and its corresponding wrapper type in assignments, method arguments, and arithmetic/logic expressions.**
+
+**This conversion enables us to use generics with primitive types**, as in the following code: 
+```
+Stack<Integer> stack = new Stack<Integer>();
+stack.push(17);        // autoboxing (int -> Integer)
+int i = stack.pop();   // unboxing   (Integer -> int)
+```
+( Automatically casting a **primitive type to a wrapper type is known as autoboxing**, and automatically **casting a wrapper type to a primitive type is known as unboxing.** )
+
+Iterable collections.
+
+For many applications, the client's requirement is just to process each of the items in some way, or to iterate through the items in the collection. Java's foreach statement supports this paradigm. For example, suppose that collection is a Queue<Transaction>. Then, if the collection is iterable, the client can print a transaction list with a single statement: 
+
+```
+for (Transaction t : collection)
+   StdOut.println(t);
+```
+
+**Bags.** 
+
+A bag is a **collection where removing items is not supported**—its purpose is to provide clients with the ability to **collect items and then to iterate through the collected items.** 
+
+**FIFO queues.**
+
+A FIFO queue is a collection that is based on the first-in-first-out (FIFO) policy. The policy of doing tasks in the same order that they arrive is one that we encounter frequently in everyday life: from people waiting in line at a theater, to cars waiting in line at a toll booth, to tasks waiting to be serviced by an application on your computer. 
+
+**Pushdown stack.**
+
+A pushdown stack is a collection that is based on the last-in-first-out (LIFO) policy. When you click a hyperlink, your browser displays the new page (and pushes onto a stack). You can keep clicking on hyperlinks to visit new pages, but you can always revisit the previous page by clicking the back button (popping it from the stack).
+
+## Linked lists.
+
+A linked list is a recursive data structure that is either empty (null) or a reference to a node having a generic item and a reference to a linked list. To implement a linked list, we start with a nested class that defines the node abstraction. 
+```
+private class Node {
+   Item item;
+   Node next;
+}
+```
+### Building a linked list. 
+To build a linked list that contains the items to, be, and or, we create a **Node** for each item, set the item field in each of the nodes to the desired value, and set the next fields to build the linked list. 
+
+... +
