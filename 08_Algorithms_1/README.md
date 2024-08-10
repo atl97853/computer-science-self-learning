@@ -1,5 +1,18 @@
 ## Algorithms I 
 
+The book is intended to follow our introductory text, Computer
+Science: An Interdisciplinary Approach, which is a broad introduction to the field. To-
+gether, these two books can support a two- or three-semester introduction to computer
+science that will give any student the requisite background to successfully address com-
+putation in any chosen field of study in science, engineering, or the social sciences.
+The starting point for much of the material in the book was the Sedgewick series of
+Algorithms books. In spirit, this book is closest to the first and second editions of that
+book, but this text benefits from decades of experience teaching and learning that ma-
+terial. Sedgewick’s current Algorithms in C/C++/Java, Third Edition is more appropri-
+ate as a reference or a text for an advanced course; this book is specifically designed to
+be a textbook for a one-semester course for first- or second-year college students and as
+a modern introduction to the basics and a reference for use by working programmers
+
 **Chapter 1:** 
 Fundamentals introduces a scientific and engineering basis for comparing algorithms and making predictions. It also includes our programming model.
 
