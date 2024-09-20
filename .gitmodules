@@ -1,0 +1,3 @@
+[submodule "07_cs61b_spring_2024/skeleton-sp24"]
+	path = 07_cs61b_spring_2024/skeleton-sp24
+	url = https://github.com/Berkeley-CS61B/skeleton-sp24.git
