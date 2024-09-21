@@ -11,3 +11,5 @@ https://csdiy.wiki/en/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%
 
 **Library and skeleton:** https://github.com/Berkeley-CS61B/skeleton-sp24.git, https://github.com/Berkeley-CS61B/library-sp24 
 
+*NOTE: for this course I was using Intellij as IDE. 
+
