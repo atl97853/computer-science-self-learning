@@ -238,8 +238,7 @@ We define the APIs for bags, queues, and stacks. Beyond the basics, these APIs r
 
 -  An essential characteristic of **collection ADTs** is that **we should be able to use them for any type of data.** A specific **Java mechanism known as generics enables this capability.** 
 
-The notation <Item> after the class name in each of our APIs defines the name Item as a type parameter, a symbolic placeholder for some concrete type to be used by the client.
-
+**The notation <Item> after the class name in each of our APIs defines the name Item as a type parameter, a symbolic placeholder for some concrete type to be used by the client.**
 You can read Stack<Item> as "stack of items." For example, you can write code such as:
 ```
 Stack<String> stack = new Stack<String>();
@@ -282,6 +281,9 @@ A FIFO queue is a collection that is based on the first-in-first-out (FIFO) poli
 **Pushdown stack.**
 
 A pushdown stack is a collection that is based on the last-in-first-out (LIFO) policy. When you click a hyperlink, your browser displays the new page (and pushes onto a stack). You can keep clicking on hyperlinks to visit new pages, but you can always revisit the previous page by clicking the back button (popping it from the stack).
+
+## Array and resizing array implementations of collections. 
+
 
 ## Linked lists.
 
