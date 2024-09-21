@@ -1,5 +1,5 @@
 # CS 61B
-*Link to the course website:* https://sp24.datastructur.es/
+**Link to the course website:** https://sp24.datastructur.es/
 
 ### Description: 
 
@@ -9,5 +9,5 @@ The quality of homework in this class is also unparalleled. The 14 labs will all
 
 https://csdiy.wiki/en/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/CS61B/#descriptions
 
-*Library and skeleton:* https://github.com/Berkeley-CS61B/skeleton-sp24.git, https://github.com/Berkeley-CS61B/library-sp24 
+**Library and skeleton:** https://github.com/Berkeley-CS61B/skeleton-sp24.git, https://github.com/Berkeley-CS61B/library-sp24 
 
