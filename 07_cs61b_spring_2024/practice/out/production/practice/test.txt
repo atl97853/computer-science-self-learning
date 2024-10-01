@@ -1,0 +1,111 @@
+import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+
+public class ArrListTest {
+    @Test
+    public void testAddLast() {
+        ArrList<String> al = new ArrList();
+        // input various string items
+        al.addLast("my");
+        al.addLast( "dog");
+        al.addLast( "wants");
+        al.addLast( "food");
+        // not sure about this
+        String expected = "food";
+        String actual = al[ArrList.length - 1];
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testGetLast() {
+        ArrList<Integer> al = new ArrList();
+        // input various string items
+        al.addLast(1);
+        al.addLast(1);
+        al.addLast(3);
+        al.addLast(5);
+        // not sure about this
+        int expected = 5;
+        int actual = al.getLast();
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testGet() {
+        ArrList<String> al = new ArrList();
+        // input various string items
+        al.addLast("a");
+        al.addLast("g");
+        al.addLast("d");
+        al.addLast("m");
+        // not sure about this
+        String expected = al[3];
+        String actual = al.get("d");
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testSize() {
+        ArrList<String> al = new ArrList();
+        // input various string items
+        al.addLast(4);
+        al.addLast(4);
+        al.addLast(3);
+        al.addLast(3);
+        al.addLast(3);
+        al.addLast(3);
+        al.addLast(20);
+        // not sure about this
+        int expected = 7;
+        int actual = al.size();
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testEmptySize() {
+        ArrList L = new ArrList();
+        assertEquals(0, L.size());
+    }
+
+    @Test
+    public void testAdd100Items() {
+        ArrList<String> al = new ArrList();
+        // input 100 int items in the arrays list
+        for (int i = 1; i <= 100; i++) {
+            al.addLast(i);
+        }
+        // not sure about this
+        int expected = 100;
+        int actual = al.size();
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testAdd500Items() {
+        ArrList<String> al = new ArrList();
+        // input 500 int items in the arrays list
+        for (int i = 1; i <= 500; i++) {
+            al.addLast(i);
+        }
+        // not sure about this
+        int expected = 500;
+        int actual = al.size();
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testAdd1000Items() {
+        ArrList<String> al = new ArrList();
+        // input 1000 int items in the arrays list
+        for (int i = 1; i <= 1000; i++) {
+            al.addLast(i);
+        }
+        // not sure about this
+        int expected = 1000;
+        int actual = al.size();
+        assertThat(actual).isEqualTo(expected);
+    }
+
+
+
+
+}
