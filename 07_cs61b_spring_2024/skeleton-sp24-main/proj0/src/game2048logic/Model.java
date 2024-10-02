@@ -86,13 +86,11 @@ public class Model {
     public boolean emptySpaceExists() {
         // TODO: Task 2. Fill in this function.
         int size = getBoard().size();
-        // loops two-dimensional of size 4
+        // It loops a two-dimensional object of size 4.
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                // checks if tile returns null
-                if (tile(i, j) == null) {
-                    return true;
-                }
+                // It checks if tile returns null.
+                if (tile(i, j) == null) return true;
             }
         }
         return false;
@@ -105,6 +103,18 @@ public class Model {
      */
     public boolean maxTileExists() {
         // TODO: Task 3. Fill in this function.
+        int size = getBoard().size();
+        // It loops two-dimensional object of size 4
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+
+                Tile tileItem = tile(i, j);
+                // "Special case" to avoid NullPointerException before calling value().
+                if (tileItem== null) continue;
+                // It converts tileItem of type Tile into an int using value() from Tile class.
+                if (tileItem.value() == MAX_PIECE) return true;
+            }
+        }
         return false;
     }
 
