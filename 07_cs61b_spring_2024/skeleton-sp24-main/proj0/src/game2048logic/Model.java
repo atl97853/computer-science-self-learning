@@ -89,7 +89,7 @@ public class Model {
         // It loops a two-dimensional object of size 4.
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                // It checks if tile returns null.
+                // It checks if tile(i, j) returns null.
                 if (tile(i, j) == null) return true;
             }
         }
@@ -104,15 +104,15 @@ public class Model {
     public boolean maxTileExists() {
         // TODO: Task 3. Fill in this function.
         int size = getBoard().size();
-        // It loops two-dimensional object of size 4
+        // It loops two-dimensional object of size 4.
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
 
-                Tile tileItem = tile(i, j);
+                Tile tile = tile(i, j);
                 // "Special case" to avoid NullPointerException before calling value().
-                if (tileItem== null) continue;
-                // It converts tileItem of type Tile into an int using value() from Tile class.
-                if (tileItem.value() == MAX_PIECE) return true;
+                if (tile(i, j) == null) continue;
+                // It converts tile object into an int using value() from Tile class.
+                if (tile.value() == MAX_PIECE) return true;
             }
         }
         return false;
@@ -126,6 +126,36 @@ public class Model {
      */
     public boolean atLeastOneMoveExists() {
         // TODO: Fill in this function.
+        // There is at least one empty space on the board.
+        if (emptySpaceExists()) return true;
+        // Size - 1, because we are iterating over each array except the last, to avoid ArrayIndexOutOfBoundsExceptions.
+        int size = getBoard().size();
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - 1; j++) {
+
+                // In each row and column, we compare each tile with the tile that comes after it,
+                // if their values are equal, then it returns true. We don't have to worry about the zeros,
+                // the condition above catches them all.
+
+                // Row 0,0.
+                if (tile(i, 0).value() == tile(i + 1, 0).value()) return true;
+                // Row 0,1.
+                if (tile(i, 1).value() == tile(i + 1, 1).value()) return true;
+                // Row 0,2.
+                if (tile(i, 2).value() == tile(i + 1, 2).value()) return true;
+                // Row 0,3.
+                if (tile(i, 3).value() == tile(i + 1, 3).value()) return true;
+
+                // Colum 0,0.
+                if (tile(0, i).value() == tile(0, i + 1).value()) return true;
+                // Colum 1,0.
+                if (tile(1, i).value() == tile(1, i + 1).value()) return true;
+                // Colum 2,0.
+                if (tile(2, i).value() == tile(2, i + 1).value()) return true;
+                // Colum 3,0.
+                if (tile(3, i).value() == tile(3, i + 1).value()) return true;
+            }
+        }
         return false;
     }
 
