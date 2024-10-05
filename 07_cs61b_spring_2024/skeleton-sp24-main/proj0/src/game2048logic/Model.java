@@ -178,10 +178,10 @@ public class Model {
         int myValue = currTile.value();
         int targetY = y;
 
-        // atLeastOneMoveExists() true while there are moves available.
-        // targetY + 1  < board.size() true while targetY doesn't reach the top row.
-        // tile(x, targetY + 1) == null it is equivalent to the next tile, and we check that tile to be empty.
-        // tile(x, targetY + 1).value() == myValue checks if myValue is equal to the value of the next tile.
+        // Checks if atLeastOneMoveExists() is true while there are moves available.
+        // Checks if targetY + 1  < board.size() is true while targetY doesn't reach the top row.
+        // Checks if tile(x, targetY + 1) == null, it is equivalent to the next tile, and we check that tile to be empty.
+        // Checks if tile(x, targetY + 1).value() == myValue is equal to the value of the next tile.
         while (true) {
             if (atLeastOneMoveExists() && targetY + 1 < board.size()) {
                 if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == myValue) {
