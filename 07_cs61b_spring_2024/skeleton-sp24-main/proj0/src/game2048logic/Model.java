@@ -178,18 +178,13 @@ public class Model {
         int myValue = currTile.value();
         int targetY = y;
 
-
-        // while (true) {
-            // if (atLeastOneMoveExists()) continue; // can move
-            //if (targetY < 4) continue; // avoid tile reaches the top row
-           // if (tile(x, targetY + 1) == null) {
-                // move through empty space
-                // add later for merge tile(x, targetY + 1).value() == currTile.value()
-        // board.move(x, targetY, currTile);
-
+        // atLeastOneMoveExists() true while there are moves available.
+        // targetY + 1  < board.size() true while targetY doesn't reach the top row.
+        // tile(x, targetY + 1) == null it is equivalent to the next tile, and we check that tile to be empty.
+        // tile(x, targetY + 1).value() == myValue checks if myValue is equal to the value of the next tile.
         while (true) {
             if (atLeastOneMoveExists() && targetY + 1 < board.size()) {
-                if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == currTile.value()) {
+                if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == myValue) {
                     targetY += 1;
                 } else {
                     board.move(x,targetY, currTile); // Debug this part.
