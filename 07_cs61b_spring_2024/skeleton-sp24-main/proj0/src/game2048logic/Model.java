@@ -177,7 +177,7 @@ public class Model {
         Tile currTile = board.tile(x, y);
         int myValue = currTile.value();
         int targetY = y;
-
+        // TODO: Tasks 5, 6, and 10. Fill in this function.
         // Checks if atLeastOneMoveExists() is true while there are moves available.
         // Checks if targetY + 1  < board.size() is true while targetY doesn't reach the top row.
         // Checks if tile(x, targetY + 1) == null, it is equivalent to the next tile, and we check that tile to be empty.
@@ -187,15 +187,15 @@ public class Model {
                 if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == myValue) {
                     targetY += 1;
                 } else {
-                    board.move(x,targetY, currTile); // Debug this part.
+                    // board.move(x,targetY, currTile); // Debug this part.
                     break;
                 }
             } else {
-                board.move(x,targetY, currTile); // Debug this part.
+                // board.move(x,targetY, currTile); // Debug this part.
                 break;
             }
         }
-        // TODO: Tasks 5, 6, and 10. Fill in this function.
+        board.move(x,targetY, currTile);
     }
 
     /** Handles the movements of the tilt in column x of the board
@@ -205,6 +205,12 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
+        // Only one column will be iterated, equivalent to a one-dimensional array,
+        // and it will be iterated from top to bottom, to move each tile one by one
+        // separately using moveTileUpAsFarAsPossible(x,i).
+        for (int i = board.size() - 1; i >= 0; i--) {
+            if (tile(x,i) != null) moveTileUpAsFarAsPossible(x,i);
+        }
     }
 
     public void tilt(Side side) {
