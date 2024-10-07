@@ -118,5 +118,4 @@ public class TestMoveTileUp {
         Model after = new Model(result, 4);
         assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
     }
-
 }
