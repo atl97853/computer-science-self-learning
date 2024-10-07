@@ -183,7 +183,8 @@ public class Model {
         } else {
             while (true) {
                 if (atLeastOneMoveExists() && targetY + 1 < board.size()) {
-                    if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == currTile.value()) {
+                    if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == currTile.value()
+                            && !tile(x, targetY + 1 ).wasMerged()) {
                         targetY += 1;
                     } else {
                         board.move(x, targetY, currTile);
