@@ -312,5 +312,53 @@ public class TestTiltColumn {
         Model after = new Model(result, before.score());
         assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
     }
+    @Test
+    @Tag("tiltColumn")
+    @DisplayName("Merge, no score")
+    @GradedTest(number = "11.2")
+    public void test10() {
+        int[][] board = {
+                {2, 0, 0, 0},
+                {4, 0, 0, 0},
+                {2, 0, 0, 0},
+                {4, 0, 0, 0}
+        };
+        Model before = new Model(board, 0);
+        before.tiltColumn(0);
+
+        int[][] result = {
+                {2, 0, 0, 0},
+                {4, 0, 0, 0},
+                {2, 0, 0, 0},
+                {4, 0, 0, 0}
+        };
+
+        Model after = new Model(result, before.score());
+        assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
+    }
+    @Test
+    @Tag("tiltColumn")
+    @DisplayName("Merge, no score")
+    @GradedTest(number = "11.2")
+    public void test11() {
+        int[][] board = {
+                {4, 0, 0, 0},
+                {2, 0, 0, 0},
+                {4, 0, 0, 0},
+                {2, 0, 0, 0}
+        };
+        Model before = new Model(board, 0);
+        before.tiltColumn(0);
+
+        int[][] result = {
+                {4, 0, 0, 0},
+                {2, 0, 0, 0},
+                {4, 0, 0, 0},
+                {2, 0, 0, 0}
+        };
+
+        Model after = new Model(result, before.score());
+        assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
+    }
 
 }
