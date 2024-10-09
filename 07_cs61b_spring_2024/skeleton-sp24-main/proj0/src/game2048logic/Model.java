@@ -175,7 +175,7 @@ public class Model {
     public void moveTileUpAsFarAsPossible(int x, int y) {
         // TODO: Tasks 5, 6, and 10. Fill in this function.
         Tile currTile = board.tile(x, y);
-        // Gatekeeper for loop
+        // Gatekeeper for loop.
         if (y + 1 < board.size() && atLeastOneMoveExists()) { // top row and at least one move exists.
             if (tile(x, y) != null) { // is not null
                 // checks for the next square to be empty or don't be not equal to the current tile value.
@@ -184,8 +184,13 @@ public class Model {
                     int myValue = currTile.value();
                     int targetY = y;
                     for (int i = targetY + 1; i < board.size(); i++) {
-                        if (tile(x, i) == null || tile(x, i).value() == myValue && !tile(x, i).wasMerged()) {
+                        if (tile(x, i) == null) {
                             targetY = i;
+                        // If the next tile value is equal to the current tile, then merge, and after a merge, increase
+                        // score, the score increases using the value of the sum of those to merged tiles.
+                        } else if (tile(x, i).value() == myValue && !tile(x, i).wasMerged()) {
+                            targetY = i;
+                            this.score += myValue + tile(x, i).value();
                         }
                     }
                     board.move(x, targetY, currTile);
@@ -193,24 +198,6 @@ public class Model {
             }
         }
     }
-
-    /**public void test(int x, int y) {
-        Tile currTile = board.tile(x, y);
-        int myValue = currTile.value();
-        int targetY = y;
-        // TODO: Tasks 5, 6, and 10. Fill in this function.
-        while (true) {
-        if (targetY + 1 < board.size() && atLeastOneMoveExists()) {
-            if (tile(x, targetY + 1) == null) {
-                targetY += 1;
-            } else if (tile(x, targetY + 1).value() == myValue
-                    && !tile(x, targetY + 1 ).wasMerged()) {
-                targetY += 1;
-            } else {
-                board.move(x, targetY, currTile);
-            }
-        }
-    } */
 
     /** Handles the movements of the tilt in column x of the board
      * by moving every tile in the column as far up as possible.
