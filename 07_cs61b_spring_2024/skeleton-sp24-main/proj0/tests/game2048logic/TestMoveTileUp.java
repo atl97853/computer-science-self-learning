@@ -118,4 +118,57 @@ public class TestMoveTileUp {
         Model after = new Model(result, 4);
         assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
     }
+
+    /**
+     * Test for bugs.
+     * */
+    /** No merging required. */
+    @Test
+    @Tag("Don't pass top row")
+    @DisplayName("Single tile in empty column")
+    @GradedTest(number = "10.1")
+    public void test01() {
+        int[][] board = {
+                {2, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };
+        Model before = new Model(board, 0);
+        before.moveTileUpAsFarAsPossible(0, 3);
+
+        int[][] result = {
+                {2, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };
+
+        Model after = new Model(result, 0);
+        assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
+    }
+    @Test
+    @Tag("Don't pass null tile")
+    @DisplayName("Single tile in empty column")
+    @GradedTest(number = "10.1")
+    public void test02() {
+        int[][] board = {
+                {2, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };
+        Model before = new Model(board, 0);
+        before.moveTileUpAsFarAsPossible(0, 0);
+
+        int[][] result = {
+                {2, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };
+
+        Model after = new Model(result, 0);
+        assertWithMessage("Boards should match:").that(before.toString()).isEqualTo(after.toString());
+    }
 }
