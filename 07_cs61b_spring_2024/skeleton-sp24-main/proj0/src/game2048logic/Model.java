@@ -85,10 +85,9 @@ public class Model {
      * */
     public boolean emptySpaceExists() {
         // TODO: Task 2. Fill in this function.
-        int size = getBoard().size();
         // It loops a two-dimensional object of size 4.
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board.size(); j++) {
                 // It checks if tile(i, j) returns null.
                 if (tile(i, j) == null) return true;
             }
@@ -174,31 +173,57 @@ public class Model {
      *    and the trailing tile does not.
      */
     public void moveTileUpAsFarAsPossible(int x, int y) {
+        // Gatekeeper for loop.
+        Tile currTile = board.tile(x, y);
+        // boolean atLeastOneMove = atLeastOneMoveExists();
+        // boolean currIsEmpty = currTile == null;
+        // boolean currTopRow = y + 1 < board.size() // if this is true, don't pass.
+        // boolean currNextNotEqual = currTile != tile(x, y + 1);
+
+        if (y + 1 < board.size()) { // top row
+            if (tile(x, y) != null) {
+                // Loop.
+                int myValue = currTile.value();
+                int targetY = y;
+                for (int i = targetY + 1; i < board.size(); i++) {
+                    if (tile(x, i) == null || tile(x,i).value() == myValue && !tile(x,i).wasMerged()) {
+                        targetY = i;
+                    }
+                }
+                board.move(x, targetY, currTile);
+            }
+        }
+        /**int myValue = currTile.value();
+        int targetY = y;
+        // TODO: Tasks 5, 6, and 10. Fill in this function.
+        for (int i = targetY + 1; i < board.size(); i++) {
+            if (tile(x, i) == null || tile(x, i).value() == myValue) {
+                if (tile(x, i) == null) {
+                    targetY = i;
+                }
+            } else {
+                board.move(x, targetY, currTile);
+            }
+        }*/
+    }
+
+    /**public void test(int x, int y) {
         Tile currTile = board.tile(x, y);
         int myValue = currTile.value();
         int targetY = y;
         // TODO: Tasks 5, 6, and 10. Fill in this function.
-        if (targetY + 1 >= board.size()) {
-            // don't move
-        } else {
-            while (true) {
-                if (atLeastOneMoveExists() && targetY + 1 < board.size()) {
-                    if (tile(x, targetY + 1) == null || tile(x, targetY + 1).value() == currTile.value()
-                            && !tile(x, targetY + 1 ).wasMerged()) {
-                        targetY += 1;
-                    } else {
-                        board.move(x, targetY, currTile);
-                        break;
-                    }
-                } else {
-                    board.move(x, targetY, currTile);
-                    break;
-                }
+        while (true) {
+        if (targetY + 1 < board.size() && atLeastOneMoveExists()) {
+            if (tile(x, targetY + 1) == null) {
+                targetY += 1;
+            } else if (tile(x, targetY + 1).value() == myValue
+                    && !tile(x, targetY + 1 ).wasMerged()) {
+                targetY += 1;
+            } else {
+                board.move(x, targetY, currTile);
             }
         }
-
-
-    }
+    } */
 
     /** Handles the movements of the tilt in column x of the board
      * by moving every tile in the column as far up as possible.
@@ -207,8 +232,11 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
+        // The loop goes from top to bottom, in this way it moves the tiles,
+        // board.size() - 1 to avoid an index out of range.
         for (int i = board.size() - 1; i >= 0; i--) {
-            if (tile(x,i) != null) moveTileUpAsFarAsPossible(x,i);
+            // if (tile(x,i) != null) moveTileUpAsFarAsPossible(x,i);
+            moveTileUpAsFarAsPossible(x,i);
         }
     }
 
