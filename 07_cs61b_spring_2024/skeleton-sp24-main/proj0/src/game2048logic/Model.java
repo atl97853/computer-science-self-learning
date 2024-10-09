@@ -230,9 +230,9 @@ public class Model {
         // TODO: Tasks 8 and 9. Fill in this function.
         // Tilt the entire board up, move all the tiles in all columns into their rightful place.
         // Merge any tiles that need to be merged.
-        for (int i = 0; i < board.size() - 1 ; i++) {
-            for (int j = 0; j < board.size() - 1; j++) { // special case, there is a bug here
-                if (tile(i,j) != null) moveTileUpAsFarAsPossible(i,j);
+        for (int i = board.size() - 1; i >= 0; i--) {
+            for (int j = board.size() - 1; j >= 0; j--) {
+                moveTileUpAsFarAsPossible(i,j);
             }
         }
     }
