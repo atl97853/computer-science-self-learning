@@ -173,38 +173,25 @@ public class Model {
      *    and the trailing tile does not.
      */
     public void moveTileUpAsFarAsPossible(int x, int y) {
-        // Gatekeeper for loop.
+        // TODO: Tasks 5, 6, and 10. Fill in this function.
         Tile currTile = board.tile(x, y);
-        // boolean atLeastOneMove = atLeastOneMoveExists();
-        // boolean currIsEmpty = currTile == null;
-        // boolean currTopRow = y + 1 < board.size() // if this is true, don't pass.
-        // boolean currNextNotEqual = currTile != tile(x, y + 1);
-
-        if (y + 1 < board.size()) { // top row
-            if (tile(x, y) != null) {
-                // Loop.
-                int myValue = currTile.value();
-                int targetY = y;
-                for (int i = targetY + 1; i < board.size(); i++) {
-                    if (tile(x, i) == null || tile(x,i).value() == myValue && !tile(x,i).wasMerged()) {
-                        targetY = i;
+        // Gatekeeper for loop
+        if (y + 1 < board.size() && atLeastOneMoveExists()) { // top row and at least one move exists.
+            if (tile(x, y) != null) { // is not null
+                // checks for the next square to be empty or don't be not equal to the current tile value.
+                if (tile(x, y + 1) == null || tile(x, y + 1).value() == currTile.value()) {
+                    // encapsulated loop, all of this to call board.move() just when it is necessary and avoid bugs
+                    int myValue = currTile.value();
+                    int targetY = y;
+                    for (int i = targetY + 1; i < board.size(); i++) {
+                        if (tile(x, i) == null || tile(x, i).value() == myValue && !tile(x, i).wasMerged()) {
+                            targetY = i;
+                        }
                     }
+                    board.move(x, targetY, currTile);
                 }
-                board.move(x, targetY, currTile);
             }
         }
-        /**int myValue = currTile.value();
-        int targetY = y;
-        // TODO: Tasks 5, 6, and 10. Fill in this function.
-        for (int i = targetY + 1; i < board.size(); i++) {
-            if (tile(x, i) == null || tile(x, i).value() == myValue) {
-                if (tile(x, i) == null) {
-                    targetY = i;
-                }
-            } else {
-                board.move(x, targetY, currTile);
-            }
-        }*/
     }
 
     /**public void test(int x, int y) {
@@ -232,10 +219,9 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
-        // The loop goes from top to bottom, in this way it moves the tiles,
-        // board.size() - 1 to avoid an index out of range.
+        // Iterates the loop from top to bottom, starting with (x, 3), in this way it moves the
+        // tiles to avoid them colliding with each other using the helper method.
         for (int i = board.size() - 1; i >= 0; i--) {
-            // if (tile(x,i) != null) moveTileUpAsFarAsPossible(x,i);
             moveTileUpAsFarAsPossible(x,i);
         }
     }
