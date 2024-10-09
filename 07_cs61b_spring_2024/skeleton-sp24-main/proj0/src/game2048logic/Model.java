@@ -228,6 +228,9 @@ public class Model {
 
     public void tilt(Side side) {
         // TODO: Tasks 8 and 9. Fill in this function.
+        // Set viewing perspective.
+        board.setViewingPerspective(side);
+
         // Tilt the entire board up, move all the tiles in all columns into their rightful place.
         // Merge any tiles that need to be merged.
         for (int i = board.size() - 1; i >= 0; i--) {
@@ -235,6 +238,9 @@ public class Model {
                 moveTileUpAsFarAsPossible(i,j);
             }
         }
+        //  Make sure to use board.setViewingPerspective to set the perspective back to
+        //  Side.NORTH before you finish your call to tilt, otherwise weird stuff will happen.
+        board.setViewingPerspective(Side.NORTH);
     }
 
     /** Tilts every column of the board toward SIDE.
