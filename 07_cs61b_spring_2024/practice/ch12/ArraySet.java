@@ -35,6 +35,7 @@ public class ArraySet<T> implements Iterable<T>{
     }
     /** All we have to do is return an instance of our ArraySetIterator that we just wrote. */
     /** Returns an iterator (a.k.a. seer) into Me. */
+    /** This is the wizard! buh! */
     public Iterator<T> iterator() {
         return new ArraySetIterator();
     }
